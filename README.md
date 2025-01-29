@@ -19,7 +19,7 @@ El objetivo es centralizar y simplificar el proceso de recuperación de objetos,
 
 ### Lenguajes de programación
 - **TypeScript** (Backend)
-- **Node.js**
+- **Node.js** (Version node LTS 22.13.1)
 - **Express**
 
 ### Frameworks
