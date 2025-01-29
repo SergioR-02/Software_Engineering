@@ -1,4 +1,4 @@
-# Software_Engineering 1 - 2024-2 Grupo #1 equipo #5
+# Software_Engineering 1 - 2024-2 Grupo #1 Equipo #5
 
 ## Integrantes del equipo
 - **Cristian Medina** - crmedinab@unal.edu.co
