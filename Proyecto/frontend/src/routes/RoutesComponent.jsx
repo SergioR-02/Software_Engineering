@@ -7,7 +7,7 @@ const RoutesComponent = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Header />} />
-        <Route path='/hola' element={<h1>Hola</h1>} />
+        <Route path='/hola' element={<h1>Buscar Objetos</h1>} />
       </Routes>
     </BrowserRouter>
   )
