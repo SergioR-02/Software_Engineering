@@ -1,13 +1,15 @@
 .header {
   background-color: #000000;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .header__access{
+  &__container{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__access{
     margin-left: 1.875rem;
     width: 18.75rem;
     display: flex;

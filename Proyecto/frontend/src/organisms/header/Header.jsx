@@ -18,8 +18,8 @@ const Header = () => {
 
   return (
     <header className="header">
+      <div className="header__container">
         <Icon name="logo_Icon" size={60} />
-        
         {
           access && 
           <div className="header__access">
@@ -27,13 +27,13 @@ const Header = () => {
             <ClickText text="Reportar Objeto" onClick={() => console.log('Click en favoritos')} />
           </div>
         }
-
-
         <IconLabelButton 
           icon="session_Icon" 
           label={label}
           onClick={() => console.log('Click en favorito')} 
         />
+      </div>
+        
     </header>
   );
 }
