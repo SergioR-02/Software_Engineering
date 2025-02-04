@@ -5,7 +5,7 @@ import "./Header.scss";
 import { useEffect, useState } from "react";
 
 const Header = () => {
-  const [access, setAccess] = useState(true);
+  const [access, setAccess] = useState(false);
   const [label, setLabel] = useState("Iniciar Sesión");
 
   useEffect(() => {
