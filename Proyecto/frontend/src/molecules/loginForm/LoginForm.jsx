@@ -3,8 +3,9 @@ import { useState } from 'react'
 import MainButton from '../../atoms/mainButton/MainButton'
 import InputField from '../../atoms/inputField/InputField'
 import './LoginForm.scss'
+import ErrorMessage from '../../atoms/errorMessage/ErrorMessage'
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, error }) => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -37,6 +38,7 @@ const LoginForm = ({ onSubmit }) => {
         onClick={() => {}}
         className='login-form__button'
       />
+      <ErrorMessage message={error} className="login-form__errorMessage" />
     </form>
   )
 }

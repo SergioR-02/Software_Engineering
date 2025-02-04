@@ -3,11 +3,15 @@ import { useState } from 'react'
 import LoginForm from '../../molecules/loginForm/LoginForm'
 
 const Login = () => {
-  const [error] = useState(null)
+  const [error, setError] = useState(null);
 
   const handleLogin = (name, password) => {
-    console.log(name, password)
-  }
+    if (name !== "c@gmail.com" || password !== "123") {
+      setError("Credenciales Incorrectas");
+    } else {
+      setError(null);
+    }
+  };
 
   return (
     <div className='login'>
