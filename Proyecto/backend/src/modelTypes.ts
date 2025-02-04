@@ -1,4 +1,4 @@
 export interface Models {
-  prueba: String
-//  xyModel: XyModel
+  prueba: string;
+  //  xyModel: XyModel
 }
