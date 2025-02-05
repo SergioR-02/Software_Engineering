@@ -1,4 +1,5 @@
+import { UserModel } from './models/UserModel';
+
 export interface Models {
-  prueba: String
-//  xyModel: XyModel
+  userModel: typeof UserModel;
 }
