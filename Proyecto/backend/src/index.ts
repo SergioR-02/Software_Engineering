@@ -1,25 +1,31 @@
-import express, { json } from 'express'; // require -> commonJS
+import express, { json } from 'express';
 import { Models } from './modelTypes';
-// importar routers
 import { corsMiddleware } from './middlewares/cors';
+import { MySQLDatabase } from './database/mysql';
+import cookieParser from 'cookie-parser';
+import { createAuthRouter } from './routes/authRoutes';
 // import 'dotenv/config'
 
-// después
-export const createApp = ({ models }: { models: Models }): express.Application => {
-  const app = express();
-  app.use(json());
-  app.use(corsMiddleware());
-  app.disable('x-powered-by');
-  // app.use('/route', createRouter({ model: models.xyModel }))
+export const createApp = async ({ models }: { models: Models }): Promise<express.Application> => {
+  try {
+    await MySQLDatabase.getInstance();
 
-  app.get('/', (_req, res) => {
-    res.send(models.prueba);
-  });
+    const app = express();
+    app.use(json());
+    app.use(corsMiddleware());
+    app.use(cookieParser());
+    app.disable('x-powered-by');
 
-  const PORT = process.env.PORT ?? 3000;
-  app.listen(PORT, () => {
-    console.log(`server listening on port http://localhost:${PORT}`);
-  });
+    app.use('/auth', createAuthRouter(models.userModel));
 
-  return app;
+    const PORT = process.env.PORT ?? 3000;
+    app.listen(PORT, () => {
+      console.log(`server listening on port http://localhost:${PORT}`);
+    });
+
+    return app;
+  } catch (error) {
+    console.error('Error al iniciar el servidor:', error);
+    process.exit(1);
+  }
 };
