@@ -1,15 +1,10 @@
-import { useState } from 'react';
-import IconLabelButton from './molecules/iconLabelButton/IconLabelButton';
-import "./App.scss";
-import Header from './organisms/header/Header';
+// import { useState } from 'react';
+// import IconLabelButton from './molecules/iconLabelButton/IconLabelButton';
+import './App.scss'
+import RoutesComponent from './routes/RoutesComponent'
 
 function App() {
-
-  return (
-    <>     
-      <Header/>
-    </>
-  )
+  return <RoutesComponent />
 }
 
 export default App
