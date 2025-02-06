@@ -1,20 +1,28 @@
+import "./Header.scss";
 import Icon from "../../atoms/icon/Icon";
 import ClickText from "../../atoms/clickText/ClickText";
 import IconLabelButton from "../../molecules/iconLabelButton/IconLabelButton";
-import "./Header.scss";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
   const [access, setAccess] = useState(true);
   const [label, setLabel] = useState("Iniciar Sesión");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    setLabel(access ? "Cerrar Sesión" : "Iniciar Sesión");
+  }, [access]);
+
+  const handleSessionClick = () => {
     if (access) {
-      setLabel("Cerrar Sesión");
+      setAccess(false);
+      console.log("Sesión cerrada");
     } else {
-      setLabel("Iniciar Sesión");
+      navigate("/login");
     }
-  },[access]);
+  };
 
   return (
     <header className="header">
@@ -30,7 +38,7 @@ const Header = () => {
         <IconLabelButton 
           icon="session_Icon" 
           label={label}
-          onClick={() => console.log('Click en favorito')} 
+          onClick={handleSessionClick} 
         />
       </div>
         
