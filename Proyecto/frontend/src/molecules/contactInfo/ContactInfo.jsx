@@ -1,5 +1,4 @@
 import "./ContactInfo.scss";
-import Icon from "../../atoms/icon/Icon";
 
 export const ContactInfo = () => (
   

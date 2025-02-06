@@ -1,10 +1,12 @@
+import "./BasicInformation.scss";
 import BasicLayout from "../../templates/layout/BasicLayout";
 import Icon from "../../atoms/icon/Icon";
-import "./BasicInformation.scss";
+import MainButton from "../../atoms/mainButton/MainButton";
+import { useNavigate } from 'react-router-dom';
 
 
 const BasicInformation = () => {
-
+  const navigate = useNavigate();
 
   return (
     <BasicLayout>
@@ -14,9 +16,13 @@ const BasicInformation = () => {
           <p className="basic-information__paragraph">
             Ayudamos a la comunidad universitaria a recuperar sus objetos perdidos y a devolver los objetos encontrados a sus dueños.
           </p>
-          <button>epa</button>
+          <MainButton
+            text='Iniciar Sesión'
+            onClick={() => navigate('/login')}
+            className='basic-information__button'
+          />
         </div>
-        <Icon name="home_Icon" size={340} className="borderRadius"/>
+        <Icon name="home_Icon" size={380} className="borderRadius"/>
       </article>
     </BasicLayout>
   );

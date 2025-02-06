@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
+import './LoginForm.scss'
 import { useState } from 'react'
 import MainButton from '../../atoms/mainButton/MainButton'
 import InputField from '../../atoms/inputField/InputField'
-import './LoginForm.scss'
 import ErrorMessage from '../../atoms/errorMessage/ErrorMessage'
 
 const LoginForm = ({ onSubmit, error }) => {
