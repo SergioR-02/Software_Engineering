@@ -1,19 +1,19 @@
-import cors from 'cors'
+import cors from 'cors';
 
-const ACCEPTED_ORIGINS: string[] = [
-  'http://localhost:1234'
-]
+const ACCEPTED_ORIGINS: string[] = ['http://localhost:1234'];
 
 interface CorsMiddlewareOptions {
-  acceptedOrigins?: string[]
+  acceptedOrigins?: string[];
 }
 
-export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS }: CorsMiddlewareOptions = {}): ReturnType<typeof cors> =>
+export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS }: CorsMiddlewareOptions = {}): ReturnType<
+  typeof cors
+> =>
   cors({
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-      if ((origin == null) || acceptedOrigins.includes(origin)) {
-        return callback(null, true)
+      if (origin == null || acceptedOrigins.includes(origin)) {
+        return callback(null, true);
       }
-      return callback(new Error('Not allowed by CORS'))
-    }
-  })
+      return callback(new Error('Not allowed by CORS'));
+    },
+  });
