@@ -1,16 +1,26 @@
 import './LoginRegistrationForget.scss'
 import { useState } from 'react'
 import LoginForm from '../../molecules/loginForm/LoginForm'
+import { Login } from '../../utilities/login'
 
 const LoginRegistrationForget = () => {
   const [error, setError] = useState(null)
 
-  const handleLogin = (name, password) => {
-    if (name !== 'c@gmail.com' || password !== '123') {
-      setError('Credenciales Incorrectas')
-    } else {
-      setError(null)
-    }
+  const handleLogin = (email, password) => {
+    Login(email, password)
+      .then(response => {
+        if (response.status === 200) {
+          console.log(response.data)
+          setError(null)
+
+        }else {
+          setError('Credenciales Incorrectas')
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        setError('Credenciales Incorrectas')
+      })
   }
 
   return (

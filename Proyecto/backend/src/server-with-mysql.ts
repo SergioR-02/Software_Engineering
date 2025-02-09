@@ -1,6 +1,4 @@
-import { createApp } from './index'
+import { createApp } from './index';
+import { UserModel } from './models/UserModel';
 
-// import { Model } from './models/x-model.js'
-
-createApp({ models: { prueba: 'simulación modelo' } })
-// models: { movieModel: MovieModel, userModel: UserModel }
+createApp({ models: { userModel: UserModel } });
