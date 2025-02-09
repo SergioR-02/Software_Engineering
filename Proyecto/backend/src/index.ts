@@ -5,6 +5,7 @@ import { MySQLDatabase } from './database/mysql';
 import cookieParser from 'cookie-parser';
 import { createAuthRouter } from './routes/authRoutes';
 import { createReportRouter } from './routes/reportRoutes';
+import { createUserRouter } from './routes/userRoutes';
 // import 'dotenv/config'
 
 export const createApp = async ({ models }: { models: Models }): Promise<express.Application> => {
@@ -20,6 +21,8 @@ export const createApp = async ({ models }: { models: Models }): Promise<express
     app.use('/auth', createAuthRouter(models.userModel));
 
     app.use('/user', createReportRouter(models.reportModel));
+
+    app.use('/user', createUserRouter(models.userModel));
 
     const PORT = process.env.PORT ?? 3000;
     app.listen(PORT, () => {

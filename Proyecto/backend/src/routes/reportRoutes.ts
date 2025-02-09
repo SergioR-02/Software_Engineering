@@ -7,8 +7,6 @@ export const createReportRouter = (reportModel: ReportModel): Router => {
   const reportRouter = Router();
   const reportController = new ReportController(reportModel);
 
-  // Middleware de autenticación para todas las rutas
-
   // Crear un nuevo reporte
   reportRouter.post('/:user_id/reports', authenticate, reportController.createReport);
 

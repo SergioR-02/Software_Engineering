@@ -33,7 +33,7 @@ export class MySQLDatabase {
   // Obtiene la conexión activa o lanza un error si no está disponible
   public getConnection(): Connection {
     if (!this.connection) {
-      throw new Error('⚠️ La conexión a MySQL no está establecida.');
+      throw new Error('La conexión a MySQL no está establecida.');
     }
     return this.connection;
   }
