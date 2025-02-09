@@ -1,6 +1,6 @@
 import cors from 'cors';
 
-const ACCEPTED_ORIGINS: string[] = ['http://localhost:1234'];
+const ACCEPTED_ORIGINS: string[] = ['http://localhost:5173'];
 
 interface CorsMiddlewareOptions {
   acceptedOrigins?: string[];

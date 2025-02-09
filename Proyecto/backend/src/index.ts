@@ -4,6 +4,7 @@ import { corsMiddleware } from './middlewares/cors';
 import { MySQLDatabase } from './database/mysql';
 import cookieParser from 'cookie-parser';
 import { createAuthRouter } from './routes/authRoutes';
+import { createReportRouter } from './routes/reportRoutes';
 // import 'dotenv/config'
 
 export const createApp = async ({ models }: { models: Models }): Promise<express.Application> => {
@@ -17,6 +18,8 @@ export const createApp = async ({ models }: { models: Models }): Promise<express
     app.disable('x-powered-by');
 
     app.use('/auth', createAuthRouter(models.userModel));
+
+    app.use('/user', createReportRouter(models.reportModel));
 
     const PORT = process.env.PORT ?? 3000;
     app.listen(PORT, () => {
