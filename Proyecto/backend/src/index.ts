@@ -8,6 +8,7 @@ import { createReportRouter } from './routes/reportRoutes';
 import { createUserRouter } from './routes/userRoutes';
 import { createLocationRouter } from './routes/LocationRoutes';
 import { createCategoryRouter } from './routes/CategoryRoutes';
+import { createObjectRouter } from './routes/objectRoutes';
 // import 'dotenv/config'
 
 export const createApp = async ({ models }: { models: Models }): Promise<express.Application> => {
@@ -29,6 +30,8 @@ export const createApp = async ({ models }: { models: Models }): Promise<express
     app.use('/user', createCategoryRouter(models.categoryModel));
 
     app.use('/user', createLocationRouter(models.locationModel));
+
+    app.use('/user', createObjectRouter(new models.objectModel()));
 
     const PORT = process.env.PORT ?? 3000;
     app.listen(PORT, () => {
