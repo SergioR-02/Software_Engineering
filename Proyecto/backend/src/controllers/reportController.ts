@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ReportModel } from '../models/ReportModel';
+import ReportModel from '../models/ReportModel';
 import { validateCreateReport, validateUpdateReport } from '../schemas/reportSchemas';
 
 export class ReportController {
@@ -26,7 +26,7 @@ export class ReportController {
         user_id,
         date_lost_or_found: new Date(validate.data.date_lost_or_found),
       };
-      await ReportModel.createReport(reportData);
+      await this.reportModel.createReport(reportData);
       res.status(201).json({ message: 'Reporte creado exitosamente' });
     } catch (error) {
       console.error(error);
@@ -39,7 +39,7 @@ export class ReportController {
     const user_id = parseInt(req.params.user_id, 10);
 
     try {
-      const reports = await ReportModel.getReportsByUserId(user_id);
+      const reports = await this.reportModel.getReportsByUserId(user_id);
       res.status(200).json(reports);
     } catch (error) {
       console.error(error);
@@ -63,7 +63,7 @@ export class ReportController {
         ...validate.data,
         date_lost_or_found: validate.data.date_lost_or_found ? new Date(validate.data.date_lost_or_found) : undefined,
       };
-      await ReportModel.updateReport(report_id, updateData);
+      await this.reportModel.updateReport(report_id, updateData);
       res.status(200).json({ message: 'Reporte actualizado exitosamente' });
     } catch (error) {
       console.error(error);
@@ -76,15 +76,11 @@ export class ReportController {
     const report_id = parseInt(req.params.report_id, 10);
 
     try {
-      await ReportModel.deleteReport(report_id);
+      await this.reportModel.deleteReport(report_id);
       res.status(200).json({ message: 'Reporte eliminado exitosamente' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });
     }
-  };
-
-  getReportModel = (): ReportModel => {
-    return this.reportModel;
   };
 }

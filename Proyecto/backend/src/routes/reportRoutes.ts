@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ReportController } from '../controllers/reportController';
 import { authenticate } from '../middlewares/authMiddleware';
-import { ReportModel } from '../models/ReportModel';
+import ReportModel from '../models/ReportModel';
 
 export const createReportRouter = (reportModel: ReportModel): Router => {
   const reportRouter = Router();

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { JWT_CONFIG } from '../config';
-import { UserModel } from '../models/UserModel';
+import UserModel from '../models/UserModel';
 import bcrypt from 'bcrypt';
 import { validateLogin, validateRegister } from '../schemas/authSchemas';
 
@@ -26,7 +26,7 @@ export class AuthController {
 
     try {
       // Verificar si el usuario ya existe
-      const existingUser = await UserModel.getUserByEmail(result.email);
+      const existingUser = await this.userModel.getUserByEmail(result.email);
       if (existingUser) {
         res.status(400).json({ message: 'El usuario ya existe' });
         return;
@@ -36,7 +36,7 @@ export class AuthController {
       const password_hash = await bcrypt.hash(result.password, 10);
       result.password = password_hash;
       // Crear el usuario
-      await UserModel.createUser(result);
+      await this.userModel.createUser(result);
 
       res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
@@ -58,7 +58,7 @@ export class AuthController {
 
     try {
       // Buscar el usuario por email
-      const user = await UserModel.getUserByEmail(email);
+      const user = await this.userModel.getUserByEmail(email);
       if (!user) {
         res.status(401).json({ message: 'Credenciales inválidas' });
         return;

@@ -21,15 +21,15 @@ export const createApp = async ({ models }: { models: Models }): Promise<express
     app.use(cookieParser());
     app.disable('x-powered-by');
 
-    app.use('/auth', createAuthRouter(models.userModel));
+    app.use('/auth', createAuthRouter(new models.userModel()));
 
-    app.use('/user', createReportRouter(models.reportModel));
+    app.use('/user', createReportRouter(new models.reportModel()));
 
-    app.use('/user', createUserRouter(models.userModel));
+    app.use('/user', createUserRouter(new models.userModel()));
 
-    app.use('/user', createCategoryRouter(models.categoryModel));
+    app.use('/user', createCategoryRouter(new models.categoryModel()));
 
-    app.use('/user', createLocationRouter(models.locationModel));
+    app.use('/user', createLocationRouter(new models.locationModel()));
 
     app.use('/user', createObjectRouter(new models.objectModel()));
 

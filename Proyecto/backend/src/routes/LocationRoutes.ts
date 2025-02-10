@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { LocationController } from '../controllers/LocationController';
-import { LocationModel } from '../models/LocationModel';
+import LocationModel from '../models/LocationModel';
 import { authenticate } from '../middlewares/authMiddleware';
 
 export const createLocationRouter = (locationModel: LocationModel): Router => {

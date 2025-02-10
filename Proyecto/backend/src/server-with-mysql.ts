@@ -1,8 +1,8 @@
 import { createApp } from './index';
-import { UserModel } from './models/UserModel';
-import { ReportModel } from './models/ReportModel';
-import { CategoryModel } from './models/CategoryModel';
-import { LocationModel } from './models/LocationModel';
+import UserModel from './models/UserModel';
+import ReportModel from './models/ReportModel';
+import CategoryModel from './models/CategoryModel';
+import LocationModel from './models/LocationModel';
 import ObjectModel from './models/ObjectModel';
 
 createApp({

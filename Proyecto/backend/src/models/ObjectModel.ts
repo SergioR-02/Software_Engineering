@@ -84,7 +84,7 @@ class ObjectModel {
     if (keyword) {
       const keywords = keyword.split(' ').filter((k) => k.trim() !== '');
       if (keywords.length) {
-        const keywordConditions = keywords.map(() => '(r.title LIKE ? OR r.description LIKE ?)').join(' OR '); // Ahora busca cualquier palabra, no todas obligatoriamente
+        const keywordConditions = keywords.map(() => '(r.title LIKE ? OR r.description LIKE ?)').join(' OR ');
 
         conditions.push(`(${keywordConditions})`);
         keywords.forEach((k) => {

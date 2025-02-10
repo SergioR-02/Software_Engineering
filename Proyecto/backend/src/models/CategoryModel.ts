@@ -6,12 +6,13 @@ export interface Category {
   name: string;
 }
 
-export class CategoryModel {
+class CategoryModel {
   // Obtener todas las categorías
-  static async getAllCategories(): Promise<Category[]> {
+  async getAllCategories(): Promise<Category[]> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();
     const [rows] = await connection.query<RowDataPacket[]>('SELECT * FROM Categories');
     return rows as Category[];
   }
 }
+export default CategoryModel;
