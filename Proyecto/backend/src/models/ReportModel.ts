@@ -15,9 +15,9 @@ export interface Report {
   updated_at: Date;
 }
 
-export class ReportModel {
+class ReportModel {
   // Crear un nuevo reporte
-  static async createReport(report: Omit<Report, 'report_id' | 'created_at' | 'updated_at'>): Promise<void> {
+  async createReport(report: Omit<Report, 'report_id' | 'created_at' | 'updated_at'>): Promise<void> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();
     await connection.query(
@@ -36,7 +36,7 @@ export class ReportModel {
   }
 
   // Editar un reporte
-  static async getReportsByUserId(user_id: number): Promise<RowDataPacket[]> {
+  async getReportsByUserId(user_id: number): Promise<RowDataPacket[]> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();
     const [rows] = await connection.query<RowDataPacket[]>('SELECT * FROM Reports WHERE user_id = ?', [user_id]);
@@ -44,16 +44,17 @@ export class ReportModel {
   }
 
   // Editar un reporte
-  static async updateReport(report_id: number, updates: Partial<Report>): Promise<void> {
+  async updateReport(report_id: number, updates: Partial<Report>): Promise<void> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();
     await connection.query('UPDATE Reports SET ? WHERE report_id = ?', [updates, report_id]);
   }
 
   // Eliminar un reporte
-  static async deleteReport(report_id: number): Promise<void> {
+  async deleteReport(report_id: number): Promise<void> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();
     await connection.query('DELETE FROM Reports WHERE report_id = ?', [report_id]);
   }
 }
+export default ReportModel;

@@ -37,8 +37,4 @@ export class ObjectController {
       res.status(500).json({ message: 'Error en el servidor' });
     }
   };
-
-  getobjectModel = (): ObjectModel => {
-    return this.objectModel;
-  };
 }

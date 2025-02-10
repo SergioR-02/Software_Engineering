@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../models/UserModel';
+import UserModel from '../models/UserModel';
 
 export class UserController {
   private userModel: UserModel;
@@ -11,14 +11,11 @@ export class UserController {
   // Obtener todos los reportes de un usuario
   getUserInformation = async (req: Request, res: Response): Promise<void> => {
     try {
-      console.log('req.body', req.body);
       // Obtener el user_id del token decodificado
       const user_id = req.body.user.user_id;
 
-      console.log('user_id', user_id);
-
       // Buscar el usuario en la base de datos
-      const user = await UserModel.getUserById(user_id);
+      const user = await this.userModel.getUserById(user_id);
 
       if (!user) {
         res.status(404).json({ message: 'Usuario no encontrado' });
@@ -39,9 +36,5 @@ export class UserController {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });
     }
-  };
-
-  getUserModel = (): UserModel => {
-    return this.userModel;
   };
 }
