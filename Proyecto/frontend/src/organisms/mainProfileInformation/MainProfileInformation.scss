@@ -1,0 +1,27 @@
+.main-profile-information {
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+
+  .p_main-profile-information__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+    width: 30rem;
+    
+    .main-profile-information__buttons {
+      max-width: 20rem;
+      min-width: 15rem;
+      height: 1.5rem;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease; 
+
+      &.active {
+        background-color: white;
+        color: black; 
+      }
+    }
+  } 
+}
