@@ -2,9 +2,15 @@ import './LoginRegistrationForget.scss'
 import { useState } from 'react'
 import LoginForm from '../../molecules/loginForm/LoginForm'
 import { Login } from '../../utilities/login'
+import { useNavigate } from 'react-router-dom';
 
 const LoginRegistrationForget = () => {
   const [error, setError] = useState(null)
+  const navigate = useNavigate();
+
+  const handleSessionClick = () => {
+      navigate("/register");
+  };
 
   const handleLogin = (email, password) => {
     Login(email, password)
@@ -29,9 +35,9 @@ const LoginRegistrationForget = () => {
       <a href='#' className='login__forgot-password'>
         ¿Olvidaste tu contraseña?
       </a>
-      <a href='#' className='login__register'>
+      <button className='login__register' onClick={() => console.log(handleSessionClick())}>
         Registrate
-      </a>
+      </button>
     </div>
   )
 }
