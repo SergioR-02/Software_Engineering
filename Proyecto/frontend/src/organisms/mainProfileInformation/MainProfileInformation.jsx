@@ -4,6 +4,7 @@ import UserBasicInformation from "../../molecules/userBasicInformation/UserBasic
 import ListButtons from "../../molecules/listButtons/ListButtons";
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import "./MainProfileInformation.scss";
+import ProfileInformation from '../../molecules/profileInformation/ProfileInformation';
 
 export default function MainProfileInformation() {
   // Estado para almacenar el botón seleccionado y la dirección de la transición
@@ -52,9 +53,7 @@ export default function MainProfileInformation() {
             >
               <div>
                 {selectedButton === "INFORMACIÓN DEL PERFIL" ? (
-                  <div className="green-box">
-                    Cuadro verde
-                  </div>
+                    <ProfileInformation />
                 ) : (
                   <div className="red-box">
                     Cuadro rojo

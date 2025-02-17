@@ -51,7 +51,7 @@
 
 /* Animación para transición cuando se selecciona MIS REPORTES (slide-left) */
 .slide-left-enter {
-  transform: translateX(-100%);
+  transform: translateX(100%);
   opacity: 0;
 }
 .slide-left-enter-active {
@@ -64,14 +64,14 @@
   opacity: 1;
 }
 .slide-left-exit-active {
-  transform: translateX(-100%);
+  transform: translateX(100%);
   opacity: 0;
   transition: transform 300ms ease-out, opacity 300ms ease-out;
 }
 
 /* Animación para transición cuando se selecciona INFORMACIÓN DEL PERFIL (slide-right) */
 .slide-right-enter {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0;
 }
 .slide-right-enter-active {
@@ -84,7 +84,7 @@
   opacity: 1;
 }
 .slide-right-exit-active {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0;
   transition: transform 300ms ease-out, opacity 300ms ease-out;
 }
