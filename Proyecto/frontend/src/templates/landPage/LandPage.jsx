@@ -1,16 +1,15 @@
-import Header from "../../organisms/header/Header"
-import BasicInformation from "../../organisms/basicInformation/BasicInformation"
-import {Footer}  from "../../organisms/footer/Footer"
-
+import Header from '../../organisms/header/Header';
+import BasicInformation from '../../organisms/basicInformation/BasicInformation';
+import { Footer } from '../../organisms/footer/Footer';
 
 const LandPage = () => {
   return (
     <>
-      <Header/>
-      <BasicInformation/>
-      <Footer/>
+      <Header />
+      <BasicInformation />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default LandPage
+export default LandPage;

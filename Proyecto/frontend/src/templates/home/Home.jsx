@@ -1,16 +1,15 @@
-import Header from "../../organisms/header/Header"
-import LostObjectsSection from "../../organisms/lostObjectsSection/LostObjectsSection"
-import {Footer}  from "../../organisms/footer/Footer"
-
+import Header from '../../organisms/header/Header';
+import LostObjectsSection from '../../organisms/lostObjectsSection/LostObjectsSection';
+import { Footer } from '../../organisms/footer/Footer';
 
 const Home = () => {
   return (
     <>
-      <Header/>
-      <LostObjectsSection/>
-      <Footer/>
+      <Header />
+      <LostObjectsSection />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
