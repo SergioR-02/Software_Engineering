@@ -2,20 +2,28 @@ import { useState } from 'react';
 import BasicLayout from "../../templates/layout/BasicLayout";
 import UserBasicInformation from "../../molecules/userBasicInformation/UserBasicInformation";
 import ListButtons from "../../molecules/listButtons/ListButtons";
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import "./MainProfileInformation.scss";
 
 export default function MainProfileInformation() {
-  // Estado para almacenar el botón seleccionado
+  // Estado para almacenar el botón seleccionado y la dirección de la transición
   const [selectedButton, setSelectedButton] = useState("INFORMACIÓN DEL PERFIL");
+  const [transitionDirection, setTransitionDirection] = useState("right"); // Valor inicial, por ejemplo "right"
 
   const buttons = [
     {
       nombre: "INFORMACIÓN DEL PERFIL",
-      onClick: () => setSelectedButton("INFORMACIÓN DEL PERFIL")
+      onClick: () => {
+        setTransitionDirection("right"); // Al seleccionar este botón, animación de derecha a izquierda (entrada desde la izquierda)
+        setSelectedButton("INFORMACIÓN DEL PERFIL");
+      }
     },
     {
       nombre: "MIS REPORTES",
-      onClick: () => setSelectedButton("MIS REPORTES")
+      onClick: () => {
+        setTransitionDirection("left"); // Al seleccionar este botón, animación de izquierda a derecha (entrada desde la derecha)
+        setSelectedButton("MIS REPORTES");
+      }
     }
   ];
 
@@ -28,13 +36,34 @@ export default function MainProfileInformation() {
           name="Cristian Barrios"
           email="JuanPerez@gmail.com"
         />
-        {/* Se pasa el botón seleccionado como prop */}
         <ListButtons 
           buttons={buttons} 
           selectedButton={selectedButton} 
           classNameC="p_main-profile-information__buttons" 
           className="main-profile-information__buttons" 
         />
+        {/* Contenedor para la transición */}
+        <div className="content-transition">
+          <SwitchTransition>
+            <CSSTransition
+              key={selectedButton}
+              timeout={300}
+              classNames={`slide-${transitionDirection}`}
+            >
+              <div>
+                {selectedButton === "INFORMACIÓN DEL PERFIL" ? (
+                  <div className="green-box">
+                    Cuadro verde
+                  </div>
+                ) : (
+                  <div className="red-box">
+                    Cuadro rojo
+                  </div>
+                )}
+              </div>
+            </CSSTransition>
+          </SwitchTransition>
+        </div>
       </div>
     </BasicLayout>
   );
