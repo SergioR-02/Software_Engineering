@@ -45,7 +45,7 @@ export default function ProfileInformation() {
         </div>
         <div className='profile-information__fields'>
           <label className='profile-information__label'>
-            NUMERO DE ESTUDIANTE
+            NUMERO DEL ESTUDIANTE
           </label>
           <input
             type='number'
