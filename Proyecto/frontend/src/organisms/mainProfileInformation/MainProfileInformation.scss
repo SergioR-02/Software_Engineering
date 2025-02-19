@@ -31,23 +31,6 @@
   }
 }
 
-.green-box, .red-box {
-  width: 100%;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: white;
-}
-
-.green-box {
-  background-color: green;
-}
-
-.red-box {
-  background-color: red;
-}
 
 /* Animación para transición cuando se selecciona MIS REPORTES (slide-left) */
 .slide-left-enter {
