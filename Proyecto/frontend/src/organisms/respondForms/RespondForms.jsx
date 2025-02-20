@@ -103,7 +103,7 @@ const RespondForms = () => {
         />
 
         <CalendarDate 
-          label="Fecha de  o hallazgo"
+          label="Fecha de Perdida o hallazgo"
           values={values.date_lost_or_found} 
           onDateTimeChange={(value) => handleChangeOptions("date_lost_or_found", value)}
         />
