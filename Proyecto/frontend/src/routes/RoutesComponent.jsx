@@ -5,6 +5,7 @@ import Login from '../templates/login/Login'
 import Home from '../templates/home/Home'
 import Register from '../templates/register/Register'
 import ObjectDetails from '../templates/objectDetails/ObjectDetails'
+import FormReport from '../templates/formReports/FormReports'
 
 const RoutesComponent = () => {
   return (
@@ -16,6 +17,8 @@ const RoutesComponent = () => {
         <Route path='/home' element={<Home/>} />
         <Route path='/register' element={<Register/>} />
         <Route path='/objectDetails' element={<ObjectDetails/>} />
+        <Route path='/report' element={<FormReport/>} />
+        <Route path='/editar/:id' element={<FormReport/>} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,0 +1,30 @@
+.select-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  &__select {
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 0.875rem;
+    
+    &:focus {
+      outline: none;
+      border-color: #a855f7;
+    }
+
+    option {
+      background-color: #0f1729;
+    }
+  }
+}
+
