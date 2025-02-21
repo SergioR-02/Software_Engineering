@@ -2,10 +2,10 @@
     background-color: #252b39;
     padding: 2rem;
     border-radius: 2rem;
-    max-width: 30rem;
+    min-width: 330px;
     .my-reports{
         .my-reports__description{
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         .my-reports__list{
             display:flex;
@@ -13,7 +13,7 @@
             gap: 1rem;
             .my-reports__item{
                 background-color: #373c48;
-                padding: 1rem;
+                padding: 1.3rem;
                 border-radius: 1rem;
             }
             .my-reports__item-actions{
@@ -22,14 +22,16 @@
                 gap:1rem;
                 .my-reports__item-button{
                     color: white;
+                    width: 30%;
+                    min-width: 105px;
                     padding: .5rem 1.5rem;
-                    border-radius: 1rem;
+                    border-radius: 1.5rem;
                 }
                 .my-reports__item-button--edit{
                     background-color: #322e51;
                 }
                 .my-reports__item-button--delete{
-                    background-color: salmon;
+                    background-color: #ff3c5f;
                 }
             }
         }
