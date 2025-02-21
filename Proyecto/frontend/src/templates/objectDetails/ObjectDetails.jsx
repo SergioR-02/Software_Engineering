@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import './ObjectDetails.scss';
 import ObjectCard from '../../organisms/objectCard/ObjectCard';
@@ -18,7 +19,9 @@ export default function ObjectDetails() {
           location='Biblioteca'
           date='2023-05-15'
           // description='llaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencialllaes con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencial'
-          description={'llaves con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencial'}
+          description={
+            'llaves con llaverito de toallin, tiene una llave de la casa y un lector para conjunto residencial'
+          }
           contactInfo='juan.perez@unal.edu.co'
         />
       </div>

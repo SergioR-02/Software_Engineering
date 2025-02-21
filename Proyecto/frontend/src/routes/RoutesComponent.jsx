@@ -15,7 +15,6 @@ const RoutesComponent = () => {
       <Routes>
         <Route path='/' element={<LandPage />} />
         <Route path='/login' element={<Login/>} />
-        <Route path='/hola' element={<h1>Hola</h1>} />
         <Route path='/home' element={<Home/>} />
         <Route path='/register' element={<Register/>} />
         <Route path='/objectDetails' element={<ObjectDetails/>} />
