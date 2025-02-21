@@ -23,6 +23,7 @@ const RespondForms = () => {
     description: '',
     status: '',
     date_lost_or_found: '',
+    contact: '',
   });
 
   const handleChangeOptions = (key, value) => {
@@ -46,34 +47,33 @@ const RespondForms = () => {
       description: '',
       status: '',
       date_lost_or_found: '',
+      contact: '',
     });
-
   }
 
 
 
   return(
     <BasicLayout>
+      <h1 className='report-form__title'>Reportar Objeto</h1>
       <form onSubmit={handleSubmit} className="report-form">
-
-        <h1>Crear nueva cuenta</h1>
-
         <InputField
-          label='Nombre del objeto'
+          label='NOMBRE DEL OBJETO'
           type='text'
           value={values.title}
           onChange={(e) => handleChangeOptions("title", e.target.value)}
-          placeholder="Ingresa el título"
+          placeholder="Ej. Mochila Azul"
           required
-          className=""
+          className='report-form__input'
         />
 
         <SelectField
           label="CATEGORÍA"
           value={values.category_id}
-          onChange={(e) => handleChangeOptions("category", e.target.value)}
-          placeholder="Selecciona una Ubicacion"
+          onChange={(e) => handleChangeOptions("category_id", e.target.value)}
+          placeholder="Selecciona una categoría"
           options={categoryOptions}
+          required
         />
 
         <TextArea
@@ -81,25 +81,28 @@ const RespondForms = () => {
           value={values.description}
           onChange={(e) => handleChangeOptions("description", e.target.value)}
           placeholder="Describe el objeto con detalles relevantes"
+          required
         />
 
         <RadioGroup
-            label="ESTADO"
-            name="status"
-            options={[
-              { label: "PERDIDO", value: "PERDIDO" },
-              { label: "ENCONTRADO", value: "ENCONTRADO" },
-            ]}
-            value={values.status}
-            onChange={(e) => handleChangeOptions("status", e.target.value)}
+          label="ESTADO"
+          name="status"
+          options={[
+            { label: "PERDIDO", value: "PERDIDO" },
+            { label: "ENCONTRADO", value: "ENCONTRADO" },
+          ]}
+          value={values.status}
+          onChange={(e) => handleChangeOptions("status", e.target.value)}
+          required
         />
 
         <SelectField
           label="UBICACIÓN"
           value={values.location_id}
           onChange={(e) => handleChangeOptions("location_id", e.target.value)}
-          placeholder="Selecciona una categoría"
+          placeholder="Selecciona una ubicación"
           options={categoryOptions}
+          required
         />
 
         <CalendarDate 
@@ -108,13 +111,23 @@ const RespondForms = () => {
           onDateTimeChange={(value) => handleChangeOptions("date_lost_or_found", value)}
         />
 
+        <InputField
+          label='FORMATO DE CONTACTO'
+          type='text'
+          value={values.contact}
+          onChange={(e) => handleChangeOptions("contact", e.target.value)}
+          placeholder="Correo electronico  o numero telefonico"
+          required
+          className='report-form__input'
+        />
         <MainButton
           text='Crear cuenta'
           type='submit'
           onClick={() => {}}
-          className='Reportar Objeto'
+          className='report-form__button'
         />
       </form>
+      
     </BasicLayout>
   )
 }

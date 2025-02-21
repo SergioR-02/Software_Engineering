@@ -1,9 +1,9 @@
 import "./RadioGroup.scss"
 
-const RadioGroup = ({ label, name, options, value, onChange, re }) => {
+const RadioGroup = ({ label, name, options, value, onChange, ...props }) => {
   return (
     <div className="radio-group">
-      <label className="radio-group__label">{label}</label>
+      <label className="forms__label">{label}</label>
       <div className="radio-group__options">
         {options.map((option) => (
           <label key={option.value} className="radio-group__option">
@@ -14,6 +14,7 @@ const RadioGroup = ({ label, name, options, value, onChange, re }) => {
               checked={value === option.value}
               onChange={onChange}
               className="radio-group__input"
+              {...props}
             />
             <span className="radio-group__text">{option.label}</span>
           </label>

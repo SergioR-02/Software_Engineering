@@ -1,11 +1,12 @@
 import './SelectField.scss'
 
-const SelectField = ({ label, value, onChange, placeholder, options }) => {
+const SelectField = ({ label, value, onChange, placeholder, options, ...props}) => {
   return (
     <div className="select-field">
-      <label className="select-field__label">{label}</label>
-      <select className="select-field__select" value={value} onChange={onChange}>
-        <option value="" disabled>
+      <label className="forms__label">{label}</label>
+      <select className="select-field__select" value={value} onChange={onChange}
+      {...props}>
+        <option value="" disabled >
           {placeholder}
         </option>
         {options.map((option) => (

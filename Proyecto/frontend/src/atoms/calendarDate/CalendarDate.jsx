@@ -16,55 +16,65 @@ dayjs.locale('es');
 // Diseño del calendario
 const theme = createTheme({
   ...esES,
+  typography: {
+    fontFamily: 'var(--font-poppins)', // Aplica Poppins a todo el tema
+  },
   components: {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
           backgroundColor: '#252b39',
-          borderRadius: '0.7rem',
+          height: '63px',
+          borderRadius: '0.75rem',
+          padding: '0 .5rem',
+          fontFamily: 'var(--font-poppins)', // Aplica Poppins al input
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#252b39'
+            borderColor: '#252b39',
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            border: '1px solid white'
-          }
+            border: '1px solid white',
+          },
         },
         input: {
-          color: 'white'
-        }
-      }
+          color: 'white',
+          fontFamily: 'var(--font-poppins)', // Aplica Poppins al texto dentro del input
+        },
+      },
     },
     MuiInputLabel: {
       styleOverrides: {
         root: {
           color: 'white',
+          fontFamily: 'var(--font-poppins)', // Aplica Poppins a las etiquetas
           '&.Mui-focused': {
-            color: 'white'
-          }
-        }
-      }
+            color: 'white',
+          },
+        },
+      },
     },
     MuiTypography: {
       styleOverrides: {
         overline: {
-          color: 'white !important'
-        }
-      }
+          color: 'white !important',
+          fontFamily: 'var(--font-poppins)', // Aplica Poppins a la tipografía general
+        },
+      },
     },
     MuiPickersDay: {
       styleOverrides: {
         root: {
+          fontFamily: 'var(--font-poppins)', // Aplica Poppins a los días del calendario
           '&.Mui-selected': {
             backgroundColor: '#252b39 !important',
             color: 'white !important',
             '&:hover': {
-              backgroundColor: '#252b39 !important'
-            }
-          }
-        }
-      }
-    }
-  }
+              backgroundColor: '#252b39 !important',
+            },
+          },
+        },
+      },
+    },
+  },
 });
 
 
@@ -83,7 +93,7 @@ export default function CalendarDate({ onDateTimeChange, values, label }) {
   return (
     <>
       <div className="ContainerCalendar"> 
-        <label className="input-field__label">{label}</label>
+        <label className="forms__label">{label}</label>
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'es'}>
             <MobileDatePicker className='CalendarDate12'
