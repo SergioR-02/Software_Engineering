@@ -5,13 +5,15 @@
     line-height:50px ;
   }
 
-  color: white;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 70%;
-  min-width: 330px;
+  & {
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 70%;
+    min-width: 330px;
+  }
 
   .p_main-profile-information__buttons {
     display: flex;
