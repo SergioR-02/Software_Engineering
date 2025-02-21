@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import BasicLayout from '../../templates/layout/BasicLayout';
 import UserBasicInformation from '../../molecules/userBasicInformation/UserBasicInformation';
 import ListButtons from '../../molecules/listButtons/ListButtons';
@@ -8,24 +8,23 @@ import ProfileInformation from '../../molecules/profileInformation/ProfileInform
 import MyReports from '../../molecules/myReports/MyReports';
 
 export default function MainProfileInformation() {
-  // Estado para almacenar el botón seleccionado y la dirección de la transición
-  const [selectedButton, setSelectedButton] = useState(
-    'INFORMACIÓN DEL PERFIL',
-  );
-  const [transitionDirection, setTransitionDirection] = useState('right'); // Valor inicial, por ejemplo "right"
+  const [selectedButton, setSelectedButton] = useState('INFORMACIÓN DEL PERFIL');
+  const [transitionDirection, setTransitionDirection] = useState('right');
+
+  const nodeRef = useRef(null); // Se usa useRef para evitar findDOMNode
 
   const buttons = [
     {
       nombre: 'INFORMACIÓN DEL PERFIL',
       onClick: () => {
-        setTransitionDirection('right'); // Al seleccionar este botón, animación de derecha a izquierda (entrada desde la izquierda)
+        setTransitionDirection('right');
         setSelectedButton('INFORMACIÓN DEL PERFIL');
       },
     },
     {
       nombre: 'MIS REPORTES',
       onClick: () => {
-        setTransitionDirection('left'); // Al seleccionar este botón, animación de izquierda a derecha (entrada desde la derecha)
+        setTransitionDirection('left');
         setSelectedButton('MIS REPORTES');
       },
     },
@@ -46,6 +45,7 @@ export default function MainProfileInformation() {
           classNameC='p_main-profile-information__buttons'
           className='main-profile-information__buttons'
         />
+        
         {/* Contenedor para la transición */}
         <div className='content-transition'>
           <SwitchTransition>
@@ -53,8 +53,9 @@ export default function MainProfileInformation() {
               key={selectedButton}
               timeout={300}
               classNames={`slide-${transitionDirection}`}
+              nodeRef={nodeRef}
             >
-              <div>
+              <div ref={nodeRef} className="transition-content">
                 {selectedButton === 'INFORMACIÓN DEL PERFIL' ? (
                   <ProfileInformation />
                 ) : (

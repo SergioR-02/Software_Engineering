@@ -14,4 +14,10 @@
     color: white;
     padding: 1rem;
     font-size: 1em;
+    
+}
+
+.input-field__input:focus {
+    outline: none;
+    border: .0625rem solid white;
 }

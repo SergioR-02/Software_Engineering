@@ -1,9 +1,12 @@
 import "./LostObjectsSection.scss";
 import BasicLayout from "../../templates/layout/BasicLayout";
 import CardButton from "../../molecules/cardButton/CardButton";
+import { useNavigate } from "react-router-dom";
 
 
 const LostObjectsSection = () => {
+  const navigate = useNavigate();
+
   return (
     <BasicLayout>
       <div className="objects-section">
@@ -18,13 +21,13 @@ const LostObjectsSection = () => {
             title="Reportar un Objeto" 
             text="¿Perdiste algo o encontraste un objeto?" 
             button="Crear Reportes"
-            onClick={() => console.log('Reportar objeto perdido')} 
+            onClick={() => navigate('/report')} 
           />
           <CardButton 
             title="Buscar Objetos" 
             text="Encuentra objetos perdidos o reportados" 
             button="Buscar Objetos"
-            onClick={() => console.log('Reportar objeto encontrado')} 
+            onClick={() => navigate('/home')} 
           />
         </div>
       </div>

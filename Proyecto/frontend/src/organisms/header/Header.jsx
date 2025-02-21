@@ -23,19 +23,23 @@ const Header = () => {
     }
   };
 
+  const handleIconClick = () => {
+    navigate(access ? '/home' : '/login');
+  };
+
   return (
     <header className='header'>
       <div className='header__container'>
-        <Icon name='logo_Icon' size={60} />
+        <Icon name='logo_Icon' size={60} onClick={handleIconClick} clickable/>
         {access && (
           <div className='header__access'>
             <ClickText
-              text='Buscar Objeto'
-              onClick={() => console.log('Click en perfil')}
+              text='Reportar Objeto'
+              onClick={() => navigate('/report')}
             />
             <ClickText
-              text='Reportar Objeto'
-              onClick={() => console.log('Click en favoritos')}
+              text='Buscar Objeto'
+              onClick={() => console.log('Click en perfil')}
             />
           </div>
         )}

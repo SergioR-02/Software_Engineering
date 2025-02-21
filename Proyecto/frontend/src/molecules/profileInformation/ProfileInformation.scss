@@ -21,8 +21,10 @@
   }
   .profile-information__button {
     font-weight: 600;
-    padding: 1rem 4rem;
-    border-radius: 1rem;
+    width: 35%;
+    min-width: 200px;
+    padding: 1rem ;
+    border-radius: 10rem;
     display: block;
     margin: 0 auto;
   }
