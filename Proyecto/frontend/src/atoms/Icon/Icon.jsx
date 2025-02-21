@@ -10,7 +10,7 @@ const IconComponents = {
   home_Icon: Home_Icon,
 };
 
-const Icon = ({ name, size = 16, className = '', ...rest }) => {
+const Icon = ({ name, size = 16, className = '', clickable = false , ...rest }) => {
   const MyIcon = IconComponents[name] || Default_Icon;
 
   // Permitir tamaños en px o rem
@@ -21,7 +21,9 @@ const Icon = ({ name, size = 16, className = '', ...rest }) => {
       src={MyIcon}
       alt={`Icono ${name}`}
       className={`icon ${className}`}
-      style={{ height: parsedSize, width: parsedSize }}
+      style={{ height: parsedSize, width: parsedSize,
+        cursor: clickable ? 'pointer' : 'default', // Cambia el cursor si es clickable
+      }}
       {...rest}
     />
   );
