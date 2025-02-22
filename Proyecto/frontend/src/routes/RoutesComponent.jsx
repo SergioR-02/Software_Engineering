@@ -7,6 +7,7 @@ import Register from '../templates/register/Register'
 import ObjectDetails from '../templates/objectDetails/ObjectDetails'
 import FormReport from '../templates/formReports/FormReports'
 import ProfileInformation from '../templates/profileInformation/ProfileInformation'
+import SearchReports from '../templates/searchReports/SearchReports'
 
 
 const RoutesComponent = () => {
@@ -21,6 +22,7 @@ const RoutesComponent = () => {
         <Route path='/profileInformation' element={<ProfileInformation/>} />
         <Route path='/report' element={<FormReport/>} />
         <Route path='/editar/:id' element={<FormReport/>} />
+        <Route path='/searchReports' element={<SearchReports/>} />
       </Routes>
     </BrowserRouter>
   )
