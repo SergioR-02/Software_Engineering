@@ -39,7 +39,7 @@ const Header = () => {
             />
             <ClickText
               text='Buscar Objeto'
-              onClick={() => console.log('Click en perfil')}
+              onClick={() => navigate('/searchReports')}
             />
           </div>
         )}

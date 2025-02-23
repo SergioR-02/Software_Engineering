@@ -1,4 +1,4 @@
-
+import './SearchForm.scss';
 import CalendarDateRange from '../../atoms/calendarDateRange/CalendarDateRange';
 import { useState } from 'react';
 import InputField from '../../atoms/inputField/InputField';
@@ -53,13 +53,13 @@ const SearchForm = () => {
 
 
   return(
-    <form onSubmit={handleSubmit} className="report-form">
+    <form onSubmit={handleSubmit} className="search-form">
       <div className='ContainerCalendarRange'>
         <InputField
           label='PALABRAS CLAVE'
           type='text'
-          value={values.title}
-          onChange={(e) => handleChangeOptions("title", e.target.value)}
+          value={values.description}
+          onChange={(e) => handleChangeOptions("description", e.target.value)}
           placeholder="Ej. Mochila Azul"
           className='report-form__input'
         />
@@ -77,10 +77,10 @@ const SearchForm = () => {
         labelFin="Fecha final"
       />
       <MainButton
-        text='Crear cuenta'
+        text='Buscar'
         type='submit'
         onClick={() => {}}
-        className='report-form__button'
+        className='search-form__button'
       />
     </form>
 
