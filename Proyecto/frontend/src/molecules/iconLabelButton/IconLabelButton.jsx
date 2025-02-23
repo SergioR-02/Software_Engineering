@@ -1,4 +1,4 @@
-import Icon from '../../atoms/icon/Icon';
+import Icon from '../../atoms/Icon/Icon';
 import ClickText from '../../atoms/clickText/ClickText';
 import './IconLabelButton.scss';
 

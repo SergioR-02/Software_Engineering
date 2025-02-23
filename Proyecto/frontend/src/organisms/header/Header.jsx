@@ -1,5 +1,5 @@
 import './Header.scss';
-import Icon from '../../atoms/icon/Icon.jsx';
+import Icon from '../../atoms/Icon/Icon.jsx';
 import ClickText from '../../atoms/clickText/ClickText.jsx';
 import IconLabelButton from '../../molecules/iconLabelButton/IconLabelButton.jsx';
 import { useEffect, useState } from 'react';
