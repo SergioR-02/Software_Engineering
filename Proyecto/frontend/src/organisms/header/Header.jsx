@@ -1,7 +1,7 @@
 import './Header.scss';
-import Icon from '../../atoms/icon/Icon';
-import ClickText from '../../atoms/clickText/ClickText';
-import IconLabelButton from '../../molecules/iconLabelButton/IconLabelButton';
+import Icon from '../../atoms/icon/Icon.jsx';
+import ClickText from '../../atoms/clickText/ClickText.jsx';
+import IconLabelButton from '../../molecules/iconLabelButton/IconLabelButton.jsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <header className='header'>
       <div className='header__container'>
-        <Icon name='logo_Icon' size={60} onClick={handleIconClick} clickable/>
+        <Icon name='logo_Icon' size={60} onClick={handleIconClick} clickable />
         {access && (
           <div className='header__access'>
             <ClickText
