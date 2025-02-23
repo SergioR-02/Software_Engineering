@@ -6,8 +6,10 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import './MainProfileInformation.scss';
 import ProfileInformation from '../../molecules/profileInformation/ProfileInformation';
 import MyReports from '../../molecules/myReports/MyReports';
+import { useUserStore } from '../../store/userStore';
 
 export default function MainProfileInformation() {
+  const { userName, userEmail } = useUserStore();
   const [selectedButton, setSelectedButton] = useState('INFORMACIÓN DEL PERFIL');
   const [transitionDirection, setTransitionDirection] = useState('right');
 
@@ -36,8 +38,8 @@ export default function MainProfileInformation() {
         <h1 className='main-profile-information__title'>Perfil de Usuario</h1>
         <UserBasicInformation
           imageSrc='https://a.calameoassets.com/7368883/picture.jpg?_u=230511151316'
-          name='Cristian Barrios'
-          email='JuanPerez@gmail.com'
+          name={userName}
+          email={userEmail}
         />
         <ListButtons
           buttons={buttons}

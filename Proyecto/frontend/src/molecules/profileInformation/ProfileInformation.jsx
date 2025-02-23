@@ -3,6 +3,7 @@ import { useState } from 'react';
 import MainButton from '../../atoms/mainButton/MainButton';
 
 export default function ProfileInformation() {
+  
   const [name, setName] = useState('Cristian Momochis de los momochis');
   const [email, setEmail] = useState('Cristian@gmail.com');
   const [studentNumber, setStudentNumber] = useState('666666666');
