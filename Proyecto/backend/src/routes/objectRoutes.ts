@@ -10,6 +10,9 @@ export const createObjectRouter = (objectModel: ObjectModel): Router => {
   // Obtener todos los objetos
   objectRouter.get('/:user_id/objects', authenticate, objectController.getAllObjects);
 
+  // Obtener un objeto por su report_id
+  objectRouter.get('/:user_id/objects/filter/:report_id', authenticate, objectController.getObjectById);
+
   // Buscar objetos por categoría, ubicación, rango de fechas y palabras clave
   objectRouter.get('/:user_id/objects/filters', authenticate, objectController.searchObjects);
 
