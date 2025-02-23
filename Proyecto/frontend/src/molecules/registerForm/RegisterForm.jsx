@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
-import './RegisterForm.scss'
-import { useState } from 'react'
-import MainButton from '../../atoms/mainButton/MainButton'
-import InputField from '../../atoms/inputField/InputField'
-import ErrorMessage from '../../atoms/errorMessage/ErrorMessage'
+import './RegisterForm.scss';
+import { useState } from 'react';
+import MainButton from '../../atoms/mainButton/MainButton';
+import InputField from '../../atoms/inputField/InputField';
+import ErrorMessage from '../../atoms/errorMessage/ErrorMessage';
 
 const RegisterForm = ({ onSubmit, error }) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <form
-      onSubmit={e => {
-        e.preventDefault()
-        onSubmit(name, password)
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(name, email, password);
       }}
       className='register-form'
     >
@@ -24,20 +24,23 @@ const RegisterForm = ({ onSubmit, error }) => {
           label='Nombre'
           type='text'
           value={name}
-          onChange={e => setName(e.target.value)}
-        />
-        <InputField
-          label='contraseña'
-          type='password'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <InputField
           label='Correo'
           type='email'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
+        <InputField
+          label='Contraseña'
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <p className='register-form__password-info'>
+          La contraseña debe ser de 8 caracteres minimo
+        </p>
       </div>
       <MainButton
         text='Crear cuenta'
@@ -47,7 +50,7 @@ const RegisterForm = ({ onSubmit, error }) => {
       />
       <ErrorMessage message={error} className='register-form__errorMessage' />
     </form>
-  )
-}
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;

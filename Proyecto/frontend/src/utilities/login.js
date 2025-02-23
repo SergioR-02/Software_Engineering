@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Logout from "./logout";
 const Login = async (email, password) => {
   try {
     const response = await axios.post(
@@ -59,7 +59,8 @@ const setupTokenRefresh = (intervalMs = 295000) => { // 295 segundos por defecto
       // Si hay un error, detener el intervalo
       clearInterval(refreshInterval);
       //TODO: Desloguear el usuario cuando el refresh token expire
-      console.log("Usuario deslogueado")
+      Logout();
+      window.location.href = '/login';
     }
   }, intervalMs);
 

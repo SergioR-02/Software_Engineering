@@ -35,7 +35,7 @@ const RoutesComponent = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Cargando...</div>; // Puedes reemplazar esto con un componente de loading más elaborado
+    return <div>Cargando...</div>; 
   }
 
   return (

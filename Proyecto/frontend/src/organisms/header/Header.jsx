@@ -20,7 +20,6 @@ const Header = () => {
   const handleSessionClick = () => {
     if (isAuthenticated) {
       handleLogout();
-
     } else {
       navigate('/login');
     }
@@ -29,7 +28,6 @@ const Header = () => {
   const handleLogout = () => {
     Logout();
     clearUserStore();
-    navigate('/login');
   };
 
   const handleIconClick = () => {

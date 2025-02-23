@@ -7,7 +7,7 @@ const Logout = async () => {
       {},
       { withCredentials: true }
     );
-    return response.data;
+    return response;
   } catch (error) {
     console.error('Error en logout:', error);
     throw error;
