@@ -1,6 +1,6 @@
 import './BasicInformation.scss';
 import BasicLayout from '../../templates/layout/BasicLayout';
-import Icon from '../../atoms/icon/Icon';
+import Icon from '../../atoms/Icon/Icon';
 import MainButton from '../../atoms/mainButton/MainButton';
 import { useNavigate } from 'react-router-dom';
 
