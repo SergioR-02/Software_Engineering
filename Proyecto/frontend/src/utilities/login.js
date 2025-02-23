@@ -1,16 +1,5 @@
 import axios from "axios";
 
-
-
-const getUser = async () => {
-  const response = await axios.get('http://localhost:3000/user/profile', {
-    withCredentials: true,
-  });
-  console.log(response.data);
-  return response.data;
-};
-
-export { getUser };
 const Login = async (email, password) => {
   try {
     const response = await axios.post(
@@ -27,7 +16,6 @@ const Login = async (email, password) => {
     // Si el login es exitoso, configuramos el refresh automático
     if (response.status === 200) {
       setupTokenRefresh();
-      getUser();
     }
     return response;
   } catch (error) {
