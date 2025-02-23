@@ -6,9 +6,14 @@ const Login = async (email, password) => {
     {
       email: email,
       password: password,
+    },
+    {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }
   );
 }
-
 
 export { Login };

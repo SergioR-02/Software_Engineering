@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { JWT_CONFIG } from '../config';
@@ -84,16 +85,18 @@ export class AuthController {
       // Configurar cookies
       res.cookie('accessToken', accessToken, {
         httpOnly: true,
-        secure: false, // Solo enviar cookies en HTTPS en producción
+        secure: true, // Necesario para sameSite: 'none'
         maxAge: 30 * 1000, // 30 segundos
         sameSite: 'none',
+        path: '/',
       });
 
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: false,
+        secure: true, // Necesario para sameSite: 'none'
         maxAge: 1 * 60 * 1000, // 1 minuto
         sameSite: 'none',
+        path: '/',
       });
 
       res.status(200).json({ message: 'Inicio de sesión exitoso' });
@@ -121,9 +124,10 @@ export class AuthController {
       // Configurar la nueva cookie de access token
       res.cookie('accessToken', accessToken, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         maxAge: 1 * 60 * 1000, // 1 minuto
         sameSite: 'none',
+        path: '/',
       });
 
       res.status(200).json({ message: 'Access token refrescado' });
