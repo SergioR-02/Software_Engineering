@@ -35,7 +35,6 @@ const LoginForm = ({ onSubmit, error }) => {
       <MainButton
         text='Iniciar Sesión'
         type='submit'
-        onClick={() => {}}
         className='login-form__button'
       />
       <ErrorMessage message={error} className="login-form__errorMessage" />

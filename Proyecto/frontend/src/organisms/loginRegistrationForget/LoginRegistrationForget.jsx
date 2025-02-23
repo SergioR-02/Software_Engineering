@@ -18,7 +18,6 @@ const LoginRegistrationForget = () => {
         if (response.status === 200) {
           console.log(response.data)
           setError(null)
-
         }else {
           setError('Credenciales Incorrectas')
         }
