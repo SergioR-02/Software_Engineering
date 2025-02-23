@@ -8,6 +8,8 @@ import { esES } from '@mui/x-date-pickers/locales';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../calendarDate/CalendarDate.scss';
 import './CalendarDateRange.scss';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; // Importa el icono
+import InputAdornment from '@mui/material/InputAdornment'; 
 
 // Configura dayjs para usar español
 dayjs.locale('es');
@@ -23,9 +25,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#252b39',
-          height: '63px',
+          height: '48px',
           borderRadius: '0.75rem',
-          padding: '0 .5rem',
+          padding: '0 1rem 0 0.2rem',
           fontFamily: 'var(--font-poppins)',
           '&:hover .MuiOutlinedInput-notchedOutline': {
             borderColor: '#252b39',
@@ -82,32 +84,32 @@ export default function CalendarDateRange({
   labelInicio = "Fecha inicio",
   labelFin = "Fecha final"
 }) {
-  const [fechaInicio, setFechaInicio] = useState(
-    values.fechaInicio ? dayjs(values.fechaInicio, 'D/M/YYYY') : null
+  const [startDate, setstartDate] = useState(
+    values.startDate ? dayjs(values.startDate, 'D/M/YYYY') : null
   );
-  const [fechaFin, setFechaFin] = useState(
-    values.fechaFin ? dayjs(values.fechaFin, 'D/M/YYYY') : null
+  const [endDate, setendDate] = useState(
+    values.endDate ? dayjs(values.endDate, 'D/M/YYYY') : null
   );
 
   useEffect(() => {
     onDateTimeChange({
-      fechaInicio: fechaInicio ? fechaInicio.format('YYYY-MM-DD') : null,
-      fechaFin: fechaFin ? fechaFin.format('YYYY-MM-DD') : null,
+      startDate: startDate ? startDate.format('YYYY-MM-DD') : null,
+      endDate: endDate ? endDate.format('YYYY-MM-DD') : null,
     });
-  }, [fechaInicio, fechaFin, onDateTimeChange]);
+  }, [startDate, endDate, onDateTimeChange]);
 
-  const handleFechaInicioChange = (newValue) => {
+  const handlestartDateChange = (newValue) => {
     if (newValue) {
-      setFechaInicio(newValue);
-      if (fechaFin && newValue.isAfter(fechaFin)) {
-        setFechaFin(null);
+      setstartDate(newValue);
+      if (endDate && newValue.isAfter(endDate)) {
+        setendDate(null);
       }
     }
   };
 
-  const handleFechaFinChange = (newValue) => {
+  const handleendDateChange = (newValue) => {
     if (newValue) {
-      setFechaFin(newValue);
+      setendDate(newValue);
     }
   };
 
@@ -117,18 +119,25 @@ export default function CalendarDateRange({
         <label className="forms__label">{labelInicio}</label>
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
-            <MobileDatePicker
-              className='CalendarDate12'
-              disableFuture
-              value={fechaInicio}
-              onChange={handleFechaInicioChange}
-              slotProps={{
-                textField: {
-                  placeholder: "Se elige una fecha",
-                  variant: "outlined",
+          <MobileDatePicker
+            className='CalendarDate12'
+            disableFuture
+            value={startDate}
+            onChange={handlestartDateChange}
+            slotProps={{
+              textField: {
+                placeholder: "Se elige una fecha",
+                variant: "outlined",
+                InputProps: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <CalendarMonthIcon sx={{ color: 'white' }}/>
+                    </InputAdornment>
+                  ),
                 },
-              }}
-            />
+              },
+            }}
+          />
           </LocalizationProvider>
         </ThemeProvider>
       </div>
@@ -136,19 +145,26 @@ export default function CalendarDateRange({
         <label className="forms__label">{labelFin}</label>
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
-            <MobileDatePicker
-              className='CalendarDate12'
-              disableFuture
-              minDate={fechaInicio || undefined}
-              value={fechaFin}
-              onChange={handleFechaFinChange}
-              slotProps={{
-                textField: {
-                  placeholder: "Se elige una fecha",
-                  variant: "outlined",
+          <MobileDatePicker
+            className='CalendarDate12'
+            disableFuture
+            minDate={startDate || undefined}
+            value={endDate}
+            onChange={handleendDateChange}
+            slotProps={{
+              textField: {
+                placeholder: "Se elige una fecha",
+                variant: "outlined",
+                InputProps: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <CalendarMonthIcon sx={{ color: 'white' }}/>
+                    </InputAdornment>
+                  ),
                 },
-              }}
-            />
+              },
+            }}
+          />
           </LocalizationProvider>
         </ThemeProvider>
       </div>

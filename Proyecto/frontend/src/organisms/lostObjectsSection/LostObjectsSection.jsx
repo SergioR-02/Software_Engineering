@@ -27,9 +27,10 @@ const LostObjectsSection = () => {
             title="Buscar Objetos" 
             text="Encuentra objetos perdidos o reportados" 
             button="Buscar Objetos"
-            onClick={() => navigate('/home')} 
+            onClick={() => navigate('/searchReports')} 
           />
         </div>
+        
       </div>
     </BasicLayout>
   );
