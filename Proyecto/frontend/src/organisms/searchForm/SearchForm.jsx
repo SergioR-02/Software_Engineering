@@ -46,8 +46,11 @@ const SearchForm = () => {
     });
   }
   const handleDateTimeChange = (dates) => {
-    console.log("Fechas seleccionadas:", dates);
-    // Aquí puedes realizar otras acciones, como actualizar un estado o enviar los datos a una API
+    setValues(prev => ({
+      ...prev,
+      startDate: dates.startDate || '',
+      endDate: dates.endDate || ''
+    }));
   };
 
 
