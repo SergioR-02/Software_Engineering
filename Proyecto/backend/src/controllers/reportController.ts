@@ -1,12 +1,15 @@
 import { Request, Response } from 'express';
 import ReportModel from '../models/ReportModel';
+import ImageModel from '../models/ImageModel';
 import { validateCreateReport, validateUpdateReport } from '../schemas/reportSchemas';
 
 export class ReportController {
   private reportModel: ReportModel;
+  private imageModel: ImageModel;
 
-  constructor(reportModel: ReportModel) {
+  constructor(reportModel: ReportModel, imageModel: ImageModel) {
     this.reportModel = reportModel;
+    this.imageModel = imageModel;
   }
 
   // Crear un nuevo reporte
@@ -26,7 +29,12 @@ export class ReportController {
         user_id,
         date_lost_or_found: new Date(validate.data.date_lost_or_found),
       };
-      await this.reportModel.createReport(reportData);
+      const result = await this.reportModel.createReport(reportData);
+      // Guardar la URL de la imagen si se subió una
+      if (req.file) {
+        const image_url = req.file.filename; // Ruta de la imagen subida
+        await this.imageModel.saveImage(image_url, result.insertId); // Guardar en la tabla Images
+      }
       res.status(201).json({ message: 'Reporte creado exitosamente' });
     } catch (error) {
       console.error(error);
