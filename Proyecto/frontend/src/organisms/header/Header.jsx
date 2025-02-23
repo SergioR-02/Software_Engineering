@@ -5,33 +5,26 @@ import IconLabelButton from '../../molecules/iconLabelButton/IconLabelButton.jsx
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store/userStore';
-import Logout from '../../utilities/logout';
 
 const Header = () => {
   const [label, setLabel] = useState('Iniciar Sesión');
   const navigate = useNavigate();
   const isAuthenticated = useUserStore((state) => state.isAuthenticated);
-  const clearUserStore = useUserStore((state) => state.clearUserStore);
 
   useEffect(() => {
-    setLabel(isAuthenticated ? 'Cerrar Sesión' : 'Iniciar Sesión');
+    setLabel(isAuthenticated ? 'Mi Perfil' : 'Iniciar Sesión');
   }, [isAuthenticated]);
 
   const handleSessionClick = () => {
     if (isAuthenticated) {
-      handleLogout();
+      navigate('/profileInformation');
     } else {
       navigate('/login');
     }
   };
 
-  const handleLogout = () => {
-    Logout();
-    clearUserStore();
-  };
-
   const handleIconClick = () => {
-    navigate(isAuthenticated ? '/home' : '/login');
+    navigate(isAuthenticated ? '/profileInformation' : '/login');
   };
 
   return (
