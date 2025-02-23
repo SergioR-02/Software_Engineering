@@ -3,6 +3,7 @@ import BasicLayout from "../../templates/layout/BasicLayout";
 import SearchForm from "../searchForm/SearchForm";
 import ItemCard from "../../molecules/itemCard/ItemCard";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const categories = ["TODAS", "LLAVES", "ELECTRONICA", "ROPA", "DOCUMENTOS", "OTROS"]
 
@@ -35,7 +36,7 @@ const items = [
     imageUrl: "../../../public/tarjeta.jpg",
   },
   {
-    id: "2",
+    id: "4",
     title: "LLAVES CON LLAVERO",
     category: "LLAVES",
     status: "ECONTRADO",
@@ -44,7 +45,7 @@ const items = [
     imageUrl: "../../../public/audifonos.jpg",
   },
   {
-    id: "3",
+    id: "5",
     title: "LAPTOP HP",
     category: "ELECTRONICA",
     status: "ENCONTRADO",
@@ -53,7 +54,7 @@ const items = [
     imageUrl: "../../../public/tarjeta.jpg",
   },
   {
-    id: "1",
+    id: "6",
     title: "MOCHILA AZUL",
     category: "ROPA",
     status: "PERDIDO",
@@ -62,7 +63,7 @@ const items = [
     imageUrl: "../../../public/llaves.jpg",
   },
   {
-    id: "2",
+    id: "7",
     title: "LLAVES CON LLAVERO",
     category: "LLAVES",
     status: "ECONTRADO",
@@ -74,14 +75,16 @@ const items = [
 
 const LostFound = () => {
   const [selectedCategory, setSelectedCategory] = useState("TODAS");
+  const navigate = useNavigate();
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category)
   }
 
   const handleViewDetails = (id) => {
+
     console.log(`Ver detalles del objeto con ID: ${id}`)
-    // Aquí puedes implementar la lógica para mostrar los detalles del objeto
+    navigate(`/objectDetails?id=${id}`)
   }
 
   const filteredItems =

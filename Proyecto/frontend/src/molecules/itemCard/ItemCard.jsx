@@ -28,7 +28,7 @@ const ItemCard = ({ id, title, category, status, location, date, imageUrl, onVie
       </div>
       <MainButton
         text='Ver Detalles'
-        onClick={() => {}}
+        onClick={() => onViewDetails(id)}
         className='item-card__button'
       />
     </div>

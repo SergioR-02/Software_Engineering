@@ -85,18 +85,16 @@ export default function CalendarDateRange({
   labelFin = "Fecha final"
 }) {
   const [startDate, setstartDate] = useState(
-    values.startDate ? dayjs(values.startDate, 'D/M/YYYY') : null
+    values.startDate ? dayjs(values.startDate) : null
   );
   const [endDate, setendDate] = useState(
-    values.endDate ? dayjs(values.endDate, 'D/M/YYYY') : null
+    values.endDate ? dayjs(values.endDate) : null
   );
 
   useEffect(() => {
-    onDateTimeChange({
-      startDate: startDate ? startDate.format('YYYY-MM-DD') : null,
-      endDate: endDate ? endDate.format('YYYY-MM-DD') : null,
-    });
-  }, [startDate, endDate, onDateTimeChange]);
+    if (values.startDate) setstartDate(dayjs(values.startDate));
+    if (values.endDate) setendDate(dayjs(values.endDate));
+  }, [values.startDate, values.endDate]);
 
   const handlestartDateChange = (newValue) => {
     if (newValue) {
@@ -104,12 +102,22 @@ export default function CalendarDateRange({
       if (endDate && newValue.isAfter(endDate)) {
         setendDate(null);
       }
+      // Notificar al padre con ambas fechas
+      onDateTimeChange({
+        startDate: newValue.format(),
+        endDate: endDate ? endDate.format() : null
+      });
     }
   };
 
   const handleendDateChange = (newValue) => {
     if (newValue) {
       setendDate(newValue);
+      // Notificar al padre con ambas fechas
+      onDateTimeChange({
+        startDate: startDate ? startDate.format() : null,
+        endDate: newValue.format()
+      });
     }
   };
 
@@ -135,6 +143,17 @@ export default function CalendarDateRange({
                     </InputAdornment>
                   ),
                 },
+                inputProps: {
+                  'aria-hidden': 'false',
+                  'aria-label': 'Seleccionar fecha',
+                },
+              
+                popper: {
+                  sx: {
+                    // Asegúrate que el popup no esté en un árbol aria-hidden
+                    zIndex: 1300 // Ajusta según tu necesidad
+                  }
+                }
               },
             }}
           />
@@ -162,6 +181,17 @@ export default function CalendarDateRange({
                     </InputAdornment>
                   ),
                 },
+                inputProps: {
+                  'aria-hidden': 'false',
+                  'aria-label': 'Seleccionar fecha',
+                },
+              
+                popper: {
+                  sx: {
+                    // Asegúrate que el popup no esté en un árbol aria-hidden
+                    zIndex: 1300 // Ajusta según tu necesidad
+                  }
+                }
               },
             }}
           />
