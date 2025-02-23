@@ -7,13 +7,23 @@ import './MainProfileInformation.scss';
 import ProfileInformation from '../../molecules/profileInformation/ProfileInformation';
 import MyReports from '../../molecules/myReports/MyReports';
 import { useUserStore } from '../../store/userStore';
+import MainButton from '../../atoms/mainButton/MainButton';
+import Logout from '../../utilities/logout';
 
 export default function MainProfileInformation() {
+  const clearUserStore = useUserStore((state) => state.clearUserStore);
   const { userName, userEmail } = useUserStore();
-  const [selectedButton, setSelectedButton] = useState('INFORMACIÓN DEL PERFIL');
+  const [selectedButton, setSelectedButton] = useState(
+    'INFORMACIÓN DEL PERFIL',
+  );
   const [transitionDirection, setTransitionDirection] = useState('right');
 
   const nodeRef = useRef(null); // Se usa useRef para evitar findDOMNode
+
+  const handleLogout = () => {
+    Logout();
+    clearUserStore();
+  };
 
   const buttons = [
     {
@@ -41,13 +51,20 @@ export default function MainProfileInformation() {
           name={userName}
           email={userEmail}
         />
+        <MainButton
+          text='Cerrar Sesión'
+          className='main-profile-information__button'
+          onClick={() => {
+            handleLogout();
+          }}
+        />
         <ListButtons
           buttons={buttons}
           selectedButton={selectedButton}
           classNameC='p_main-profile-information__buttons'
           className='main-profile-information__buttons'
         />
-        
+
         {/* Contenedor para la transición */}
         <div className='content-transition'>
           <SwitchTransition>
@@ -57,7 +74,7 @@ export default function MainProfileInformation() {
               classNames={`slide-${transitionDirection}`}
               nodeRef={nodeRef}
             >
-              <div ref={nodeRef} className="transition-content">
+              <div ref={nodeRef} className='transition-content'>
                 {selectedButton === 'INFORMACIÓN DEL PERFIL' ? (
                   <ProfileInformation />
                 ) : (
