@@ -86,12 +86,14 @@ export class AuthController {
         httpOnly: true,
         secure: false, // Solo enviar cookies en HTTPS en producción
         maxAge: 30 * 1000, // 30 segundos
+        sameSite: 'none',
       });
 
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: false,
         maxAge: 1 * 60 * 1000, // 1 minuto
+        sameSite: 'none',
       });
 
       res.status(200).json({ message: 'Inicio de sesión exitoso' });
@@ -121,6 +123,7 @@ export class AuthController {
         httpOnly: true,
         secure: false,
         maxAge: 1 * 60 * 1000, // 1 minuto
+        sameSite: 'none',
       });
 
       res.status(200).json({ message: 'Access token refrescado' });
