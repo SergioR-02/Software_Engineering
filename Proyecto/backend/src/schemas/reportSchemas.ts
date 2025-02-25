@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 // Esquema para crear un reporte
 export const reportSchema = z.object({
-  category_id: z.number().int().positive(),
-  location_id: z.number().int().positive(),
+  category_id: z.string().transform((val) => Number(val)), // Convierte a número
+  location_id: z.string().transform((val) => Number(val)),
   title: z.string().min(1, 'El título es requerido'),
   description: z.string().optional(),
   status: z.enum(['perdido', 'encontrado']),

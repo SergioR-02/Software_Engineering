@@ -17,10 +17,10 @@ export interface Report {
 
 class ReportModel {
   // Crear un nuevo reporte
-  async createReport(report: Omit<Report, 'report_id' | 'created_at' | 'updated_at'>): Promise<void> {
+  async createReport(report: Omit<Report, 'report_id' | 'created_at' | 'updated_at'>): Promise<any> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();
-    await connection.query(
+    const [result] = await connection.query(
       'INSERT INTO Reports (user_id, category_id, location_id, title, description, status, date_lost_or_found, contact_method) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
       [
         report.user_id,
@@ -33,9 +33,10 @@ class ReportModel {
         report.contact_method,
       ],
     );
+    return result;
   }
 
-  // Editar un reporte
+  // Traer reportes del usuario por id
   async getReportsByUserId(user_id: number): Promise<RowDataPacket[]> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();

@@ -9,6 +9,7 @@ import { createUserRouter } from './routes/userRoutes';
 import { createLocationRouter } from './routes/LocationRoutes';
 import { createCategoryRouter } from './routes/CategoryRoutes';
 import { createObjectRouter } from './routes/objectRoutes';
+import { createImageRouter } from './routes/imageRoutes';
 // import 'dotenv/config'
 
 export const createApp = async ({ models }: { models: Models }): Promise<express.Application> => {
@@ -23,7 +24,7 @@ export const createApp = async ({ models }: { models: Models }): Promise<express
 
     app.use('/auth', createAuthRouter(new models.userModel()));
 
-    app.use('/user', createReportRouter(new models.reportModel()));
+    app.use('/user', createReportRouter(new models.reportModel(), new models.imageModel()));
 
     app.use('/user', createUserRouter(new models.userModel()));
 
@@ -32,6 +33,8 @@ export const createApp = async ({ models }: { models: Models }): Promise<express
     app.use('/user', createLocationRouter(new models.locationModel()));
 
     app.use('/user', createObjectRouter(new models.objectModel()));
+
+    app.use('/user', createImageRouter());
 
     const PORT = process.env.PORT ?? 3000;
     app.listen(PORT, () => {
