@@ -80,7 +80,7 @@ const theme = createTheme({
 
 
 export default function CalendarDate({ onDateTimeChange, values, label }) {
-  const [value, setValue] = useState(values.dayAndHour ? dayjs(values.dayAndHour, 'D/M/YYYY') : dayjs());;
+  const [value, setValue] = useState(values.date_lost_or_found ? dayjs(values.date_lost_or_found, 'YYYY-MM-DD') : dayjs());;
 
   const handleChange = (newValue) => {
     if (newValue) {
