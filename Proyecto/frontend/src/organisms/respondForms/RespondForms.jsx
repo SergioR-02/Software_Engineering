@@ -7,6 +7,8 @@ import MainButton from '../../atoms/mainButton/MainButton';
 import RadioGroup from '../../atoms/radioGroup/RadioGroup';
 import SelectField from '../../atoms/selectField/SelectField';
 import TextArea from '../../atoms/textArea/TextArea';
+import { useUserStore } from '../../store/userStore';
+
 
 const categoryOptions = [
   { value: "1", label: "Electrónicos" },
@@ -16,6 +18,9 @@ const categoryOptions = [
 ]
 
 const RespondForms = () => {
+  const { userName, userId } = useUserStore();
+
+  console.log(userName, userId);
   const [values, setValues] = useState({
     title: '',
     category_id: '',
@@ -23,7 +28,8 @@ const RespondForms = () => {
     description: '',
     status: '',
     date_lost_or_found: '',
-    contact: '',
+    contact_method: '',
+    image: null,
   });
 
   const handleChangeOptions = (key, value) => {
@@ -47,7 +53,8 @@ const RespondForms = () => {
       description: '',
       status: '',
       date_lost_or_found: '',
-      contact: '',
+      contact_method: '',
+      image: null,
     });
   }
 
@@ -112,13 +119,21 @@ const RespondForms = () => {
         />
 
         <InputField
-          label='FORMATO DE CONTACTO'
+          label='FORMA DE CONTACTO'
           type='text'
-          value={values.contact}
-          onChange={(e) => handleChangeOptions("contact", e.target.value)}
+          value={values.contact_method}
+          onChange={(e) => handleChangeOptions("contact_method", e.target.value)}
           placeholder="Correo electronico  o numero telefonico"
           required
           className='report-form__input'
+        />
+        <InputField
+          label='IMAGEN DEL OBJETO'
+          type='file'
+          accept="image/png"
+          onChange={(e) => handleChangeOptions("image", e.target.files[0])}
+          required
+          className='report-form__inputFile'
         />
         <MainButton
           text='Crear cuenta'

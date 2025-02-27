@@ -85,7 +85,6 @@ export default function CalendarDate({ onDateTimeChange, values, label }) {
   const handleChange = (newValue) => {
     if (newValue) {
       setValue(newValue);
-      console.log('Fecha seleccionada:', newValue.format('YYYY-MM-DD'));
       onDateTimeChange(newValue.format('YYYY-MM-DD')); // Enviar en el formato YYYY-MM-DD
     }
   };
