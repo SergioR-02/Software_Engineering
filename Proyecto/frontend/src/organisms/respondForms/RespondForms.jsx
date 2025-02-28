@@ -4,7 +4,7 @@ import RespondFormFields from '../../organisms/respondFormFields/RespondFormFiel
 import { useState, useEffect } from 'react';
 import MainButton from '../../atoms/mainButton/MainButton';
 import { useUserStore } from '../../store/userStore';
-import { createReport } from '../../utilities/createReport';
+import { createReport , updateReport } from '../../utilities/reports';
 import dayjs from 'dayjs';
 import { useFormLogic } from '../../hooks/useFormLogic';
 import { useParams } from 'react-router-dom';
@@ -14,6 +14,7 @@ const RespondForms = () => {
   const { id } = useParams();
   const { userId } = useUserStore();
 
+  console.log('userId:', userId);
   const [values, setValues] = useState({
     title: '',
     category_id: '',
@@ -41,8 +42,8 @@ const RespondForms = () => {
               date_lost_or_found: data.date_lost_or_found
                 ? dayjs(data.date_lost_or_found).format('YYYY-MM-DD')
                 : dayjs().format('YYYY-MM-DD'),
-              contact_method: '', // Puedes agregar el dato correcto si existe en `data`
-              image: null, // Puedes modificar esto si hay una imagen en `data`
+              contact_method: '',
+              image: null, 
             });
           }
         })
@@ -53,7 +54,20 @@ const RespondForms = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const reportData = await createReport(userId, values);
+      let reportData;
+      if (id) {
+        reportData = await updateReport(userId, id, {
+          title: values.title,
+          category_id: values.category_id,
+          location_id: values.location_id,
+          description: values.description,
+          status: values.status,
+          date_lost_or_found: values.date_lost_or_found,
+          contact_method:  values.contact_method,
+        }); // Si hay un ID, actualiza el reporte
+      } else {
+        reportData = await createReport(userId, values); // Si no hay ID, crea un nuevo reporte
+      }
       console.log(id ? 'Reporte actualizado:' : 'Reporte creado:', reportData);
       resetForm();
     } catch (error) {
