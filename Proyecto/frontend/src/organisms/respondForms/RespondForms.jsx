@@ -7,24 +7,25 @@ import { useUserStore } from '../../store/userStore';
 import { createReport , updateReport } from '../../utilities/reports';
 import dayjs from 'dayjs';
 import { useFormLogic } from '../../hooks/useFormLogic';
-import { useParams } from 'react-router-dom';
+import { data, useParams } from 'react-router-dom';
 import { getFilteredObjects } from '../../utilities/getObjectId';
 
 const RespondForms = () => {
   const { id } = useParams();
   const { userId } = useUserStore();
 
-  console.log('userId:', userId);
   const [values, setValues] = useState({
     title: '',
     category_id: '',
-    location_id: '',
+    location_id: "",
     description: '',
     status: '',
     date_lost_or_found: dayjs().format('YYYY-MM-DD'),
     contact_method: '',
     image: null,
   });
+  console.log('ID:', values);
+
 
   const { handleChangeOptions, resetForm } = useFormLogic(setValues);
 
@@ -33,22 +34,26 @@ const RespondForms = () => {
       getFilteredObjects(userId, id)
         .then(data => {
           if (data) {
+            console.log('ID:', data);
             setValues({
               title: data.title || '',
-              category_id: data.category || '',
+              category_id: data.category|| '',
               location_id: data.location || '',
               description: data.description || '',
               status: data.status || '',
               date_lost_or_found: data.date_lost_or_found
                 ? dayjs(data.date_lost_or_found).format('YYYY-MM-DD')
                 : dayjs().format('YYYY-MM-DD'),
-              contact_method: '',
-              image: null, 
+              contact_method: data.contact_method || '',
             });
           }
         })
         .catch(error => console.error('Error al obtener el reporte:', error));
     }
+    if(!id){
+      resetForm();
+    }
+    
   }, [userId, id]);
 
   const handleSubmit = async (e) => {

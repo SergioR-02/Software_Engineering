@@ -3,7 +3,7 @@ import SelectField from '../../atoms/selectField/SelectField';
 import TextArea from '../../atoms/textArea/TextArea';
 import RadioGroup from '../../atoms/radioGroup/RadioGroup';
 import CalendarDate from '../../atoms/calendarDate/CalendarDate';
-import { categoryOptions } from '../../utilities/options';
+import { categoryOptions, locationOptions } from '../../utilities/options';
 import { useParams } from 'react-router-dom';
 
 
@@ -53,7 +53,7 @@ const RespondFormFields = ({ values, handleChangeOptions }) => {
         value={values.location_id}
         onChange={(e) => handleChangeOptions("location_id", e.target.value)}
         placeholder="Selecciona una ubicación"
-        options={categoryOptions}
+        options={locationOptions}
         required
       />
 
