@@ -104,8 +104,8 @@ export default function CalendarDateRange({
       }
       // Notificar al padre con ambas fechas
       onDateTimeChange({
-        startDate: newValue.format(),
-        endDate: endDate ? endDate.format() : null
+        startDate: newValue.format('YYYY-MM-DD'),
+        endDate: endDate ? endDate.format('YYYY-MM-DD') : null
       });
     }
   };
@@ -115,8 +115,8 @@ export default function CalendarDateRange({
       setendDate(newValue);
       // Notificar al padre con ambas fechas
       onDateTimeChange({
-        startDate: startDate ? startDate.format() : null,
-        endDate: newValue.format()
+        startDate: startDate ? startDate.format('YYYY-MM-DD') : null,
+        endDate: newValue.format('YYYY-MM-DD')
       });
     }
   };
