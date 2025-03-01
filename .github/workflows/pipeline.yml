@@ -17,13 +17,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Instalar dependencias
+      - name: Instalar node
         uses: actions/setup-node@v3
         with:
           node-version: 22
 
       - name: Instalar dependencias
-        run: npm install
+        run: npm install --no-audit --no-fund --no-optional
 
       - name: Lint
         run: npm run lint
+
+      - name: Build
+        run: npm run build
+    
+      - name: Test
+        run: npm run test

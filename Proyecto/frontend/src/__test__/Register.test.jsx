@@ -2,6 +2,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import Register from '../templates/register/Register';
 
 // Mock del componente RegisterForm
@@ -22,9 +23,18 @@ jest.mock('../molecules/registerForm/RegisterForm', () => {
   return RegisterForm;
 });
 
+// Mock para RegisterUser utility
+jest.mock('../utilities/register', () => {
+  return jest.fn().mockResolvedValue({});
+});
+
 describe('Register Component', () => {
   beforeEach(() => {
-    render(<Register />);
+    render(
+      <BrowserRouter>
+        <Register />
+      </BrowserRouter>,
+    );
   });
 
   test('renders register form', () => {
