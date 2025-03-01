@@ -4,11 +4,11 @@ import SearchForm from "../searchForm/SearchForm";
 import ItemCard from "../../molecules/itemCard/ItemCard";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';  // Asegúrate de tener axios importado
+import {getObjects} from '../../utilities/foundObjects';
 import { useUserStore } from '../../store/userStore';
 import dayjs from 'dayjs';
+import { categoryFound } from '../../utilities/options';
 
-const categories = ["TODAS", "LLAVES", "ELECTRONICA", "ROPA", "DOCUMENTOS", "OTROS"];
 
 const LostFound = () => {
   const { userId } = useUserStore();
@@ -16,24 +16,20 @@ const LostFound = () => {
   const [items, setItems] = useState([]);  // <-- Estado para items traídos del backend
   const navigate = useNavigate();
 
-  // Este useEffect se ejecutará al montar el componente.
-  // Aquí obtienes la lista de objetos desde tu endpoint.
   useEffect(() => {
     const fetchObjects = async () => {
       try {
-        
-        const response = await axios.get(`http://localhost:3000/user/${ userId }/objects`, {
-          withCredentials: true,
-        });
-        const fetchedItems = response.data.map((obj) => ({
+        const data = await getObjects(userId);
+
+        // Formateamos el arreglo que viene de la API:
+        const fetchedItems = data.map((obj) => ({
           id: obj.report_id,
           title: obj.title,
           category: obj.category,
           status: obj.status,
           location: obj.location,
           date: dayjs(obj.date_lost_or_found).format('YYYY-MM-DD'),
-          // Aquí armamos la URL para la imagen
-          imageUrl: `http://localhost:3000/user/${ userId }/images/${obj.image_url}`,
+          imageUrl: `http://localhost:3000/user/6/images/${obj.image_url}`,
         }));
 
         setItems(fetchedItems);
@@ -54,10 +50,11 @@ const LostFound = () => {
     navigate(`/objectDetails?id=${id}`);
   };
 
+  console.log(selectedCategory);
   // Filtrado local en el front:
   const filteredItems = selectedCategory === "TODAS"
     ? items
-    : items.filter((item) => item.category.toUpperCase() === selectedCategory);
+    : items.filter((item) => item.category.toUpperCase() === selectedCategory.toUpperCase());
 
   return (
     <BasicLayout>
@@ -67,7 +64,7 @@ const LostFound = () => {
 
         <label className="lost-found__label">CATEGORIA</label>
         <div className='lost-found__categories'>
-          {categories.map((category) => (
+          {categoryFound.map((category) => (
             <button
               key={category}
               className={`lost-found__categoryButton ${
