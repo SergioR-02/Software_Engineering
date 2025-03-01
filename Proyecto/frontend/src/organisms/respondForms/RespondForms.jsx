@@ -1,135 +1,98 @@
 import './RespondForms.scss';
 import BasicLayout from '../../templates/layout/BasicLayout';
-import CalendarDate from '../../atoms/calendarDate/CalendarDate';
-import { useState } from 'react';
-import InputField from '../../atoms/inputField/InputField';
+import RespondFormFields from '../../organisms/respondFormFields/RespondFormFields';
+import { useState, useEffect } from 'react';
 import MainButton from '../../atoms/mainButton/MainButton';
-import RadioGroup from '../../atoms/radioGroup/RadioGroup';
-import SelectField from '../../atoms/selectField/SelectField';
-import TextArea from '../../atoms/textArea/TextArea';
-
-const categoryOptions = [
-  { value: "1", label: "Electrónicos" },
-  { value: "2", label: "Documentos" },
-  { value: "3", label: "Accesorios" },
-  { value: "4", label: "Otros" },
-]
+import { useUserStore } from '../../store/userStore';
+import { createReport , updateReport } from '../../utilities/reports';
+import dayjs from 'dayjs';
+import { useFormLogic } from '../../hooks/useFormLogic';
+import { data, useParams } from 'react-router-dom';
+import { getFilteredObjects } from '../../utilities/getObjectId';
+import { categoryOptions, locationOptions } from '../../utilities/options';
 
 const RespondForms = () => {
+  const { id } = useParams();
+  const { userId } = useUserStore();
+
   const [values, setValues] = useState({
     title: '',
     category_id: '',
-    location_id: '',
+    location_id: "",
     description: '',
     status: '',
-    date_lost_or_found: '',
-    contact: '',
-  });
+    date_lost_or_found: dayjs().format('YYYY-MM-DD'),
+    contact_method: '',
+    image: null,  });
 
-  const handleChangeOptions = (key, value) => {
-    const auxValues = { ...values };
-    if (key === "title"){
-      const  filteredValue =  value.replace(/^\s+/, '').replace(/[^a-zA-Z0-9 .,]/g, '').replace(/\s+/g, ' ');
-      auxValues[key] = filteredValue;
-    }else{
-      auxValues[key] = value;
+
+  const { handleChangeOptions, resetForm } = useFormLogic(setValues);
+
+  useEffect(() => {
+    if (userId && id) {
+      getFilteredObjects(userId, id)
+        .then(data => {
+          if (data) {
+            // Encontrar IDs basados en los nombres recibidos
+            console.log('Data:', data);
+            const category = categoryOptions.find(opt => opt.label === data.category);
+            const location = locationOptions.find(opt => opt.label === data.location);
+
+            setValues({
+              title: data.title || '',
+              category_id: category ? category.value : '', // Usar el value del option
+              location_id: location ? location.value : '',
+              description: data.description || '',
+              status: data.status || '',
+              date_lost_or_found: data.date_lost_or_found
+                ? dayjs(data.date_lost_or_found).format('YYYY-MM-DD')
+                : dayjs().format('YYYY-MM-DD'),
+              contact_method: data.contact_method || '',
+            });
+          }
+        })
     }
-    setValues(auxValues);
+    if(!id){
+      resetForm();
+    }
+    
+  }, [userId, id]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let reportData;
+      if (id) {
+        reportData = await updateReport(userId, id, {
+          title: values.title,
+          category_id: values.category_id,
+          location_id: values.location_id,
+          description: values.description,
+          status: values.status,
+          date_lost_or_found: values.date_lost_or_found,
+          contact_method:  values.contact_method,
+        }); // Si hay un ID, actualiza el reporte
+      } else {
+        reportData = await createReport(userId, values); // Si no hay ID, crea un nuevo reporte
+      }
+      console.log(id ? 'Reporte actualizado:' : 'Reporte creado:', reportData);
+      resetForm();
+    } catch (error) {
+      console.error('Error al procesar el reporte:', error);
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(values);
-    setValues({
-      title: '',
-      category_id: '',
-      location_id: '',
-      description: '',
-      status: '',
-      date_lost_or_found: '',
-      contact: '',
-    });
-  }
-
-
-
-  return(
+  return (
     <BasicLayout>
-      <h1 className='report-form__title'>Reportar Objeto</h1>
+      <h1 className='report-form__title'>
+        {id ? 'Actualizar Reporte' : 'Reportar Objeto'}
+      </h1>
       <form onSubmit={handleSubmit} className="report-form">
-        <InputField
-          label='NOMBRE DEL OBJETO'
-          type='text'
-          value={values.title}
-          onChange={(e) => handleChangeOptions("title", e.target.value)}
-          placeholder="Ej. Mochila Azul"
-          required
-          className='report-form__input'
-        />
-
-        <SelectField
-          label="CATEGORÍA"
-          value={values.category_id}
-          onChange={(e) => handleChangeOptions("category_id", e.target.value)}
-          placeholder="Selecciona una categoría"
-          options={categoryOptions}
-          required
-        />
-
-        <TextArea
-          label="DESCRIPCIÓN BREVE"
-          value={values.description}
-          onChange={(e) => handleChangeOptions("description", e.target.value)}
-          placeholder="Describe el objeto con detalles relevantes"
-          required
-        />
-
-        <RadioGroup
-          label="ESTADO"
-          name="status"
-          options={[
-            { label: "PERDIDO", value: "PERDIDO" },
-            { label: "ENCONTRADO", value: "ENCONTRADO" },
-          ]}
-          value={values.status}
-          onChange={(e) => handleChangeOptions("status", e.target.value)}
-          required
-        />
-
-        <SelectField
-          label="UBICACIÓN"
-          value={values.location_id}
-          onChange={(e) => handleChangeOptions("location_id", e.target.value)}
-          placeholder="Selecciona una ubicación"
-          options={categoryOptions}
-          required
-        />
-
-        <CalendarDate 
-          label="Fecha de Perdida o hallazgo"
-          values={values.date_lost_or_found} 
-          onDateTimeChange={(value) => handleChangeOptions("date_lost_or_found", value)}
-        />
-
-        <InputField
-          label='FORMATO DE CONTACTO'
-          type='text'
-          value={values.contact}
-          onChange={(e) => handleChangeOptions("contact", e.target.value)}
-          placeholder="Correo electronico  o numero telefonico"
-          required
-          className='report-form__input'
-        />
-        <MainButton
-          text='Crear cuenta'
-          type='submit'
-          onClick={() => {}}
-          className='report-form__button'
-        />
+        <RespondFormFields values={values} handleChangeOptions={handleChangeOptions} />
+        <MainButton text={id ? 'Actualizar reporte' : 'Crear reporte'} type='submit' className='report-form__button' />
       </form>
-      
     </BasicLayout>
-  )
-}
+  );
+};
 
 export default RespondForms;

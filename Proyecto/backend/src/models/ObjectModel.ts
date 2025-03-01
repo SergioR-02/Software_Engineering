@@ -9,10 +9,11 @@ export interface Object {
   location: string;
   status: 'perdido' | 'encontrado';
   date_lost_or_found: Date;
+  image_url?: string; // Nueva propiedad para la URL de la imagen
 }
 
 class ObjectModel {
-  // Obtener todos los objetos
+  // Obtener todos los objetos con sus imágenes
   async getAllObjects(): Promise<Object[]> {
     const db = await MySQLDatabase.getInstance();
     const connection = db.getConnection();
@@ -24,12 +25,40 @@ class ObjectModel {
         r.status,
         l.name AS location,
         r.date_lost_or_found,
-        r.description
+        r.description,
+        i.image_url
       FROM Reports r
       JOIN Categories c ON r.category_id = c.category_id
       JOIN Locations l ON r.location_id = l.location_id
+      LEFT JOIN Images i ON r.report_id = i.report_id
     `);
     return rows as Object[];
+  }
+
+  // Obtener un objeto por su report_id con su imagen
+  async getObjectById(report_id: number): Promise<Object | null> {
+    const db = await MySQLDatabase.getInstance();
+    const connection = db.getConnection();
+    const [rows] = await connection.query<RowDataPacket[]>(
+      `
+      SELECT
+        r.report_id,
+        r.title,
+        c.name AS category,
+        r.status,
+        l.name AS location,
+        r.date_lost_or_found,
+        r.description,
+        i.image_url
+      FROM Reports r
+      JOIN Categories c ON r.category_id = c.category_id
+      JOIN Locations l ON r.location_id = l.location_id
+      LEFT JOIN Images i ON r.report_id = i.report_id
+      WHERE r.report_id = ?
+    `,
+      [report_id],
+    );
+    return (rows[0] as Object) || null;
   }
 
   // Buscar objetos por categoría, ubicación, rango de fechas y palabras clave
@@ -53,10 +82,12 @@ class ObjectModel {
         r.status,
         l.name AS location,
         r.date_lost_or_found,
-        r.description
+        r.description,
+        i.image_url
       FROM Reports r
       JOIN Categories c ON r.category_id = c.category_id
       JOIN Locations l ON r.location_id = l.location_id
+      LEFT JOIN Images i ON r.report_id = i.report_id
     `;
 
     const params: any[] = [];
@@ -85,7 +116,6 @@ class ObjectModel {
       const keywords = keyword.split(' ').filter((k) => k.trim() !== '');
       if (keywords.length) {
         const keywordConditions = keywords.map(() => '(r.title LIKE ? OR r.description LIKE ?)').join(' OR ');
-
         conditions.push(`(${keywordConditions})`);
         keywords.forEach((k) => {
           params.push(`%${k}%`, `%${k}%`);

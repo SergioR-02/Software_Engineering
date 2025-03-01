@@ -18,10 +18,29 @@ export class ObjectController {
     }
   };
 
+  // Obtener un objeto por su report_id
+  getObjectById = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const report_id = parseInt(req.params.report_id, 10);
+      const object = await this.objectModel.getObjectById(report_id);
+
+      if (!object) {
+        res.status(404).json({ message: 'Objeto no encontrado' });
+        return;
+      }
+
+      res.status(200).json(object);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error en el servidor' });
+    }
+  };
+
   // Buscar objetos por categoría, ubicación, rango de fechas y palabras clave
   searchObjects = async (req: Request, res: Response): Promise<void> => {
     try {
       const { category, location, startDate, endDate, keyword } = req.query;
+      console.log('Parámetros recibidos:', { category, location, startDate, endDate, keyword });
 
       const objects = await this.objectModel.searchObjects(
         category as string,

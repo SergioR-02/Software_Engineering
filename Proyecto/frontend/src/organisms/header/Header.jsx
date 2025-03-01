@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   const handleIconClick = () => {
-    navigate(isAuthenticated ? '/profileInformation' : '/login');
+    navigate(isAuthenticated ? '/home' : '/login');
   };
 
   return (
