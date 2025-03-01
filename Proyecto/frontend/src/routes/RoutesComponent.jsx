@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Routes, Route } from 'react-router-dom';
 import LandPage from '../templates/landPage/LandPage';
 import { BrowserRouter } from 'react-router-dom';

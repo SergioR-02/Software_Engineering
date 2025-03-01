@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import './ObjectCard.scss';
 import MainButton from '../../atoms/mainButton/MainButton';
 import BasicLayout from '../../templates/layout/BasicLayout';

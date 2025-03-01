@@ -1,6 +1,5 @@
 import './UserBasicInformation.scss';
 
-/* eslint-disable react/prop-types */
 export default function UserBasicInformation({ imageSrc, name, email }) {
   return (
     <div className='user-info'>

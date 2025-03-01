@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import './ObjectDetails.scss';
 import ObjectCard from '../../organisms/objectCard/ObjectCard';

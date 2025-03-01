@@ -29,8 +29,9 @@ const LostFound = () => {
           status: obj.status,
           location: obj.location,
           date: dayjs(obj.date_lost_or_found).format('YYYY-MM-DD'),
-          imageUrl: `http://localhost:3000/user/6/images/${obj.image_url}`,
+          imageUrl: `http://localhost:3000/user/${userId}/images/${obj.image_url}`,
         }));
+        console.log(fetchedItems);
 
         setItems(fetchedItems);
       } catch (error) {

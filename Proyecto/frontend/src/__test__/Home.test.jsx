@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-env jest */
 import React from 'react';
@@ -33,7 +32,7 @@ describe('Home Component', () => {
     render(
       <BrowserRouter>
         <Home />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     expect(screen.getByTestId('mock-header')).toBeInTheDocument();

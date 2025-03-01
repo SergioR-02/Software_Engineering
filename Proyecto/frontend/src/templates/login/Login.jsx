@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import './Login.scss';
 import LoginRegistrationForget from '../../organisms/loginRegistrationForget/LoginRegistrationForget';

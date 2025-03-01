@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import "./InputField.scss";
 
 const InputField = ({ label, type, value, onChange, className, ...props}) => (

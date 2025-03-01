@@ -1,19 +1,18 @@
-/* eslint-disable react/prop-types */
-import './LoginForm.scss'
-import { useState } from 'react'
-import MainButton from '../../atoms/mainButton/MainButton'
-import InputField from '../../atoms/inputField/InputField'
-import ErrorMessage from '../../atoms/errorMessage/ErrorMessage'
+import './LoginForm.scss';
+import { useState } from 'react';
+import MainButton from '../../atoms/mainButton/MainButton';
+import InputField from '../../atoms/inputField/InputField';
+import ErrorMessage from '../../atoms/errorMessage/ErrorMessage';
 
 const LoginForm = ({ onSubmit, error }) => {
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <form
-      onSubmit={e => {
-        e.preventDefault()
-        onSubmit(name, password)
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(name, password);
       }}
       className='login-form'
     >
@@ -23,13 +22,13 @@ const LoginForm = ({ onSubmit, error }) => {
           label='CORREO'
           type='email'
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <InputField
           label='PASSWORD'
           type='password'
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <MainButton
@@ -37,9 +36,9 @@ const LoginForm = ({ onSubmit, error }) => {
         type='submit'
         className='login-form__button'
       />
-      <ErrorMessage message={error} className="login-form__errorMessage" />
+      <ErrorMessage message={error} className='login-form__errorMessage' />
     </form>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

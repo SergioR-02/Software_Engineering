@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import './RegisterForm.scss';
 import { useState } from 'react';
 import MainButton from '../../atoms/mainButton/MainButton';

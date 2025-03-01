@@ -1,0 +1,14 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - Develop-frontend
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: |
+          echo "Checkout"
