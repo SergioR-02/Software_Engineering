@@ -6,10 +6,10 @@ on:
       - Develop-frontend
 
 jobs:
-    say-hello:
-        runs-on: ubuntu-18.04
-        steps:
-            - name: Echo the message
-              run: echo "Hello, world!"
+  say-hello:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Echo the message
+        run: echo "Hello, world!"
 
 
