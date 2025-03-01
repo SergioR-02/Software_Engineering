@@ -17,6 +17,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
             node-version: 22
+      - name: Entrar a la carpeta front
+        run: cd Proyecto/frontend
       - name: Instalar dependencias
         run: npm install
       - name: Lint
