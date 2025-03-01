@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import { useFormLogic } from '../../hooks/useFormLogic';
 import { data, useParams } from 'react-router-dom';
 import { getFilteredObjects } from '../../utilities/getObjectId';
+import { categoryOptions, locationOptions } from '../../utilities/options';
 
 const RespondForms = () => {
   const { id } = useParams();
@@ -22,9 +23,7 @@ const RespondForms = () => {
     status: '',
     date_lost_or_found: dayjs().format('YYYY-MM-DD'),
     contact_method: '',
-    image: null,
-  });
-  console.log('ID:', values);
+    image: null,  });
 
 
   const { handleChangeOptions, resetForm } = useFormLogic(setValues);
@@ -34,11 +33,15 @@ const RespondForms = () => {
       getFilteredObjects(userId, id)
         .then(data => {
           if (data) {
-            console.log('ID:', data);
+            // Encontrar IDs basados en los nombres recibidos
+            console.log('Data:', data);
+            const category = categoryOptions.find(opt => opt.label === data.category);
+            const location = locationOptions.find(opt => opt.label === data.location);
+
             setValues({
               title: data.title || '',
-              category_id: data.category|| '',
-              location_id: data.location || '',
+              category_id: category ? category.value : '', // Usar el value del option
+              location_id: location ? location.value : '',
               description: data.description || '',
               status: data.status || '',
               date_lost_or_found: data.date_lost_or_found
@@ -48,7 +51,6 @@ const RespondForms = () => {
             });
           }
         })
-        .catch(error => console.error('Error al obtener el reporte:', error));
     }
     if(!id){
       resetForm();
