@@ -8,18 +8,22 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Proyecto/frontend
     steps:
       - name: Traer el repositorio
         uses: actions/checkout@v3
         with:
-            fetch-depth: 0
+          fetch-depth: 0
+
       - name: Instalar dependencias
         uses: actions/setup-node@v3
         with:
-            node-version: 22
+          node-version: 22
+
       - name: Instalar dependencias
         run: npm install
-        working-directory: Proyecto/frontend
+
       - name: Lint
         run: npm run lint
-      
