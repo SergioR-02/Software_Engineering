@@ -32,4 +32,4 @@ El objetivo es centralizar y simplificar el proceso de recuperación de objetos,
 ### Servicios externos
 - **Bases de datos relacionales** (MySQL.)
 - **Servidores** (Aun no decidido)
-- **APIs** (Integración con servicios externos si es necesario)
+- **APIs** (Integración con servicios externos si es necesario) 
