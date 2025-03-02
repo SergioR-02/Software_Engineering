@@ -1,18 +1,28 @@
 import './MyReports.scss';
 import { useNavigate } from 'react-router-dom';
 import { deleteReport } from '../../utilities/deleteReport';
+import { useState } from 'react';
+import ModalWindow from '../../organisms/modalWindow/ModalWindow';
 
 export default function MyReports({ reports, userId, setReload, reload }) {
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [reportToDelete, setReportToDelete] = useState(null);
 
   const handleDeleteReport = async (reportId) => {
     try {
       await deleteReport(userId, reportId);
       console.log('Reporte eliminado exitosamente');
       setReload(!reload);
+      setModalOpen(false);
     } catch (error) {
       console.error('Error al eliminar el reporte:', error);
     }
+  };
+
+  const openDeleteConfirmation = (reportId) => {
+    setReportToDelete(reportId);
+    setModalOpen(true);
   };
 
   const datos = reports;
@@ -35,10 +45,16 @@ export default function MyReports({ reports, userId, setReload, reload }) {
               </p>
               <p className='my-reports__item-date'>FECHA: {dato.fecha}</p>
               <div className='my-reports__item-actions'>
-                <button className='my-reports__item-button my-reports__item-button--edit' onClick={() => navigate(`/editar/${dato.report_id}`)}>
+                <button
+                  className='my-reports__item-button my-reports__item-button--edit'
+                  onClick={() => navigate(`/editar/${dato.report_id}`)}
+                >
                   EDITAR
                 </button>
-                <button className='my-reports__item-button my-reports__item-button--delete' onClick={() => handleDeleteReport(dato.report_id)}>
+                <button
+                  className='my-reports__item-button my-reports__item-button--delete'
+                  onClick={() => openDeleteConfirmation(dato.report_id)}
+                >
                   ELIMINAR
                 </button>
               </div>
@@ -46,6 +62,24 @@ export default function MyReports({ reports, userId, setReload, reload }) {
           ))}
         </div>
       </div>
+
+      <ModalWindow
+        isOpen={modalOpen}
+        message='¿Estás seguro que deseas eliminar este reporte? Esta acción no se puede deshacer.'
+        onClose={() => setModalOpen(false)}
+        buttons={[
+          {
+            text: 'Cancelar',
+            className: 'modal-button--cancel',
+            onClick: () => setModalOpen(false),
+          },
+          {
+            text: 'Eliminar',
+            className: 'modal-button--confirm',
+            onClick: () => handleDeleteReport(reportToDelete),
+          },
+        ]}
+      />
     </div>
   );
 }
