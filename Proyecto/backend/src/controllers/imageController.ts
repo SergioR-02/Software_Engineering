@@ -5,7 +5,6 @@ export class ImageController {
   sendImage = (req: Request, res: Response): void => {
     const filename = req.params.filename;
     const imagePath = path.join(__dirname, '..', 'uploads', filename);
-    console.log('Enviando imagen:', imagePath);
 
     // Enviar el archivo al cliente
     res.sendFile(imagePath, (err) => {

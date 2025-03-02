@@ -24,13 +24,10 @@ export class ReportController {
     const user_id = parseInt(req.params.user_id, 10);
 
     try {
-      console.log(req.body);
       const reportData = {
         ...validate.data,
         user_id,
       };
-
-      console.log(reportData);
       const result = await this.reportModel.createReport(reportData);
       // Guardar la URL de la imagen si se subió una
       if (req.file) {
