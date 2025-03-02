@@ -12,11 +12,16 @@
 }
 
 .modal-content {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #252b39;;
+  border-radius: 16px;
+  padding: 20px 40px;
   width: 90%;
-  max-width: 500px;
+  max-width: 640px;
+  height: 250px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
@@ -24,10 +29,11 @@
 }
 
 .modal-message {
-  font-size: 18px;
+  font-size: 21px;
   margin-bottom: 20px;
   text-align: center;
-  color: #333;
+  color: white;
+
   width: 100%;
 }
 
@@ -56,20 +62,20 @@
   }
   
   &--confirm {
-    background-color: #4caf50;
+    background-color: #ff3c5f;
     color: white;
     
     &:hover {
-      background-color: #3d9140;
+      background-color: #f0123b;
     }
   }
   
   &--cancel {
-    background-color: #f44336;
+    background-color: #322e51;
     color: white;
     
     &:hover {
-      background-color: #d32f2f;
+      background-color: #352d74;
     }
   }
 } 

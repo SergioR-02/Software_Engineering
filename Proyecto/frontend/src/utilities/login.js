@@ -42,7 +42,7 @@ const refreshToken = async () => {
 
 let refreshInterval;
 
-const setupTokenRefresh = (intervalMs = 295000) => { // 295 segundos por defecto
+const setupTokenRefresh = (intervalMs = 5 * 60 * 1000) => { // 295 segundos por defecto
   console.log('Configurando refresco de token');
   // Limpiar el intervalo anterior si existe
   if (refreshInterval) {
