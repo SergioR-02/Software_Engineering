@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 const combineDateWithDefaultTime = (dateString: string): Date => {
-  console.log('dateString', dateString);
   const providedDate = new Date(`${dateString}T12:00:00.000Z`);
   return providedDate;
 };
@@ -17,7 +16,7 @@ export const reportSchema = z.object({
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'Formato de fecha inválido (YYYY-MM-DD)')
     .transform((dateString) => combineDateWithDefaultTime(dateString)),
-  contact_method: z.enum(['email', 'phone', 'both']),
+  contact_method: z.string().min(1, 'El método de contacto es requerido'),
 });
 
 // Exportar funciones de validación

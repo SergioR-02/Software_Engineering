@@ -39,8 +39,7 @@ export class ObjectController {
   // Buscar objetos por categoría, ubicación, rango de fechas y palabras clave
   searchObjects = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { category, location, startDate, endDate, keyword } = req.query;
-      console.log('Parámetros recibidos:', { category, location, startDate, endDate, keyword });
+      const { category, location, startDate, endDate, keyword, status } = req.query;
 
       const objects = await this.objectModel.searchObjects(
         category as string,
@@ -48,6 +47,7 @@ export class ObjectController {
         startDate as string,
         endDate as string,
         keyword as string,
+        status as 'perdido' | 'encontrado',
       );
 
       res.status(200).json(objects);
