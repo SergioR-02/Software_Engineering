@@ -7,13 +7,13 @@ export const useUserStore = create((set) => ({
   userId: '',
   setUserId: (userId) => set({ userId }),
 
-  userName: 'Cristian Pete',
+  userName: '',
   setUserName: (userName) => set({ userName }),
 
-  userEmail: 'JuanPerez@gmail.com',
+  userEmail: '',
   setUserEmail: (userEmail) => set({ userEmail }),
 
-  userPhone: '1234567890',
+  userPhone: '',
   setUserPhone: (userPhone) => set({ userPhone }),
 
   userRole: 'user',

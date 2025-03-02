@@ -1,26 +1,22 @@
 import './MyReports.scss';
+import { useNavigate } from 'react-router-dom';
+import { deleteReport } from '../../utilities/deleteReport';
 
-export default function MyReports() {
-  const datos = [
-    {
-      titulo: 'Mochila Azul',
-      estado: 'Perdido',
-      fecha: '12/12/2021',
-      id: 1,
-    },
-    {
-      titulo: 'Celular',
-      estado: 'Encontrado',
-      fecha: '12/12/2021',
-      id: 2,
-    },
-    {
-      titulo: 'Laptop',
-      estado: 'Perdido',
-      fecha: '12/12/2021',
-      id: 3,
-    },
-  ];
+export default function MyReports({ reports, userId, setReload, reload }) {
+  const navigate = useNavigate();
+
+  const handleDeleteReport = async (reportId) => {
+    try {
+      await deleteReport(userId, reportId);
+      console.log('Reporte eliminado exitosamente');
+      setReload(!reload);
+    } catch (error) {
+      console.error('Error al eliminar el reporte:', error);
+    }
+  };
+
+  const datos = reports;
+
   return (
     <div className='my-reports-container'>
       <div className='my-reports'>
@@ -30,21 +26,19 @@ export default function MyReports() {
         </p>
         <div className='my-reports__list'>
           {datos.map((dato) => (
-            <div key={dato.id} className='my-reports__item'>
+            <div key={dato.report_id} className='my-reports__item'>
               <h3 className='my-reports__item-title'>{dato.titulo}</h3>
               <p
                 className={`my-reports__item-status my-reports__item-status--${dato.estado.toLowerCase()}`}
               >
                 ESTADO: {dato.estado}
               </p>
-              <p className='my-reports__item-date'>
-                FECHA: {dato.fecha}
-              </p>
+              <p className='my-reports__item-date'>FECHA: {dato.fecha}</p>
               <div className='my-reports__item-actions'>
-                <button className='my-reports__item-button my-reports__item-button--edit'>
+                <button className='my-reports__item-button my-reports__item-button--edit' onClick={() => navigate(`/editar/${dato.report_id}`)}>
                   EDITAR
                 </button>
-                <button className='my-reports__item-button my-reports__item-button--delete'>
+                <button className='my-reports__item-button my-reports__item-button--delete' onClick={() => handleDeleteReport(dato.report_id)}>
                   ELIMINAR
                 </button>
               </div>

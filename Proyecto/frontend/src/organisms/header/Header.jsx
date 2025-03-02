@@ -33,14 +33,14 @@ const Header = () => {
         <Icon name='logo_Icon' size={60} onClick={handleIconClick} clickable />
         {isAuthenticated && (
           <div className='header__access'>
-            <ClickText
+            {/* <ClickText
               text='Reportar Objeto'
               onClick={() => navigate('/report')}
             />
             <ClickText
               text='Buscar Objeto'
               onClick={() => navigate('/searchReports')}
-            />
+            /> */}
           </div>
         )}
         <IconLabelButton

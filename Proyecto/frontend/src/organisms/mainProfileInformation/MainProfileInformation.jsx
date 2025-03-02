@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import BasicLayout from '../../templates/layout/BasicLayout';
 import UserBasicInformation from '../../molecules/userBasicInformation/UserBasicInformation';
 import ListButtons from '../../molecules/listButtons/ListButtons';
@@ -9,8 +9,25 @@ import MyReports from '../../molecules/myReports/MyReports';
 import { useUserStore } from '../../store/userStore';
 import MainButton from '../../atoms/mainButton/MainButton';
 import Logout from '../../utilities/logout';
+import { getMiReports } from '../../utilities/getMiReports';
 
 export default function MainProfileInformation() {
+  const [reports, setReports] = useState([]);
+  const userId = useUserStore.getState().userId;
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const reportsData = await getMiReports(userId);
+        setReports(reportsData);
+      } catch (error) {
+        console.error('Error al obtener los reportes:', error);
+      }
+    };
+    fetchReports();
+  }, [reload]);
+
   const clearUserStore = useUserStore((state) => state.clearUserStore);
   const { userName, userEmail } = useUserStore();
   const [selectedButton, setSelectedButton] = useState(
@@ -78,7 +95,7 @@ export default function MainProfileInformation() {
                 {selectedButton === 'INFORMACIÓN DEL PERFIL' ? (
                   <ProfileInformation />
                 ) : (
-                  <MyReports />
+                  <MyReports reports={reports} userId={userId} setReload={setReload} reload={reload} />
                 )}
               </div>
             </CSSTransition>
