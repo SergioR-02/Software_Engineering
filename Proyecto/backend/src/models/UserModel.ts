@@ -1,6 +1,7 @@
 import { RowDataPacket } from 'mysql2';
 import { MySQLDatabase } from '../database/mysql';
 import { RegisterInput } from '../schemas/authSchemas';
+import { UpdateUserInput } from '../schemas/authSchemas';
 
 interface User {
   user_id: number;
@@ -41,6 +42,13 @@ class UserModel {
       input.name,
       input.phone_number,
     ]);
+  }
+
+  // Actualizar informacion del usuario
+  async updateUser(user_id: number, input: UpdateUserInput): Promise<void> {
+    const db = await MySQLDatabase.getInstance();
+    const connection = db.getConnection();
+    await connection.query('UPDATE Users SET ? WHERE user_id = ?', [input, user_id]);
   }
 }
 
