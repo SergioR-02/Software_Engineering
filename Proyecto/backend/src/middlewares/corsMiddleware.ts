@@ -1,6 +1,6 @@
 import cors from 'cors';
 
-const ACCEPTED_ORIGINS: string[] = ['http://localhost:1234'];
+const ACCEPTED_ORIGINS: string[] = ['*'];
 
 interface CorsMiddlewareOptions {
   acceptedOrigins?: string[];
@@ -16,4 +16,5 @@ export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS }: CorsMiddl
       }
       return callback(new Error('Not allowed by CORS'));
     },
+    credentials: true,
   });
