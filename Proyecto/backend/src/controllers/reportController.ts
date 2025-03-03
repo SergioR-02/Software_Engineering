@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import ReportModel from '../models/ReportModel';
 import ImageModel from '../models/ImageModel';
 import { validateCreateReport, validateUpdateReport } from '../schemas/reportSchemas';
+import { deleteImage } from '../middlewares/multerMiddleware';
 
 export class ReportController {
   private reportModel: ReportModel;
@@ -14,29 +15,34 @@ export class ReportController {
 
   // Crear un nuevo reporte
   createReport = async (req: Request, res: Response): Promise<void> => {
-    const validate = validateCreateReport(req.body);
-
-    if (!validate.success) {
-      res.status(400).json({ error: JSON.parse(validate.error.message) });
-      return;
-    }
-
-    const user_id = parseInt(req.params.user_id, 10);
+    const uploadedFile = req.file?.filename;
 
     try {
+      const validate = validateCreateReport(req.body);
+
+      if (!validate.success) {
+        if (uploadedFile) deleteImage(uploadedFile);
+        res.status(400).json({ error: JSON.parse(validate.error.message) });
+        return;
+      }
+
+      const user_id = parseInt(req.params.user_id, 10);
       const reportData = {
         ...validate.data,
         user_id,
       };
       const result = await this.reportModel.createReport(reportData);
       // Guardar la URL de la imagen si se subió una
-      if (req.file) {
-        const image_url = req.file.filename; // Ruta de la imagen subida
-        await this.imageModel.saveImage(image_url, result.insertId); // Guardar en la tabla Images
+      if (uploadedFile) {
+        await this.imageModel.saveImage(uploadedFile, result.insertId); // Guardar en la tabla Images
       }
       res.status(201).json({ message: 'Reporte creado exitosamente' });
     } catch (error) {
       console.error(error);
+      console.log('req.file', req.file);
+
+      if (uploadedFile) deleteImage(uploadedFile);
+
       res.status(500).json({ message: 'Error en el servidor' });
     }
   };
@@ -83,7 +89,13 @@ export class ReportController {
     const report_id = parseInt(req.params.report_id, 10);
 
     try {
+      const imageRecord = await this.imageModel.getImageByReportId(report_id);
       await this.reportModel.deleteReport(report_id);
+
+      if (imageRecord) {
+        deleteImage(imageRecord.image_url);
+      }
+
       res.status(200).json({ message: 'Reporte eliminado exitosamente' });
     } catch (error) {
       console.error(error);

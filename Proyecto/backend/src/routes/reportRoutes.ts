@@ -3,14 +3,14 @@ import { ReportController } from '../controllers/reportController';
 import { authenticate } from '../middlewares/authMiddleware';
 import ReportModel from '../models/ReportModel';
 import ImageModel from '../models/ImageModel';
-import upload from '../multerConfig';
+import upload from '../middlewares/multerMiddleware';
 
 export const createReportRouter = (reportModel: ReportModel, imageModel: ImageModel): Router => {
   const reportRouter = Router();
   const reportController = new ReportController(reportModel, imageModel);
 
   // Crear un nuevo reporte
-  reportRouter.post('/:user_id/reports', upload.single('image'), authenticate, reportController.createReport);
+  reportRouter.post('/:user_id/reports', authenticate, upload.single('image'), reportController.createReport);
 
   // Obtener todos los reportes de un usuario
   reportRouter.get('/:user_id/reports', authenticate, reportController.getUserReports);
