@@ -80,7 +80,11 @@ const RespondForms = () => {
       }
       console.log(id ? 'Reporte actualizado:' : 'Reporte creado:', reportData);
       resetForm();
-      navigate('/home');
+      if (id) {
+        navigate(`/profileInformation`);
+      } else{
+        navigate('/home');
+      }
     } catch (error) {
       console.error('Error al procesar el reporte:', error);
     }
