@@ -14,9 +14,10 @@ export default function ProfileInformation() {
 
   const handleUpdateUserInfo = async () => {
     try {
-      console.log(userId, name, email, studentNumber);
       await updateUserInfo(userId, name, email, studentNumber);
-      toast.success('Información actualizada correctamente');
+      // toast.success('Información actualizada correctamente');
+      //Refrescar la pagina
+      window.location.reload();
     } catch (error) {
       toast.error('Error al actualizar la información');
     }
