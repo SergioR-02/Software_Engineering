@@ -1,20 +1,10 @@
 import cors from 'cors';
 
-const ACCEPTED_ORIGINS: string[] = ['*'];
-
-interface CorsMiddlewareOptions {
-  acceptedOrigins?: string[];
-}
-
-export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS }: CorsMiddlewareOptions = {}): ReturnType<
-  typeof cors
-> =>
+export const corsMiddleware = () =>
   cors({
-    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-      if (origin == null || acceptedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      return callback(new Error('Not allowed by CORS'));
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, '*'); // Permitir sin origen (ejemplo: Postman)
+      return callback(null, origin); // Permitir cualquier origen dinámicamente
     },
-    credentials: true,
+    credentials: true, // Habilita envío de cookies o credenciales
   });
