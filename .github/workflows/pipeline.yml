@@ -1,0 +1,35 @@
+name: Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - Develop-frontend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Proyecto/frontend
+    steps:
+      - name: Traer el repositorio
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Instalar node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Instalar dependencias
+        run: npm install 
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+    
+      - name: Test
+        run: npm run test

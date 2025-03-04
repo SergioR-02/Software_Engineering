@@ -1,3 +1,5 @@
+[![Deploy Pipeline](https://github.com/SergioR-02/Software_Engineering/actions/workflows/pipeline.yml/badge.svg)](https://github.com/SergioR-02/Software_Engineering/actions/workflows/pipeline.yml)
+
 # Software_Engineering 1 - 2024-2 Grupo #1 Equipo #5
 
 ## Integrantes del equipo

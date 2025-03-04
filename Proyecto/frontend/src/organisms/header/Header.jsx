@@ -1,41 +1,45 @@
-import Icon from "../../atoms/icon/Icon";
-import ClickText from "../../atoms/clickText/ClickText";
-import IconLabelButton from "../../molecules/iconLabelButton/IconLabelButton";
-import "./Header.scss";
-import { useEffect, useState } from "react";
+import './Header.scss';
+import Icon from '../../atoms/Icon/Icon.jsx';
+import ClickText from '../../atoms/clickText/ClickText.jsx';
+import IconLabelButton from '../../molecules/iconLabelButton/IconLabelButton.jsx';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store/userStore';
 
 const Header = () => {
-  const [access, setAccess] = useState(true);
-  const [label, setLabel] = useState("Iniciar Sesión");
+  const [label, setLabel] = useState('Iniciar Sesión');
+  const navigate = useNavigate();
+  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
 
   useEffect(() => {
-    if (access) {
-      setLabel("Cerrar Sesión");
+    setLabel(isAuthenticated ? 'Mi Perfil' : 'Iniciar Sesión');
+  }, [isAuthenticated]);
+
+  const handleSessionClick = () => {
+    if (isAuthenticated) {
+      navigate('/profileInformation');
     } else {
-      setLabel("Iniciar Sesión");
+      navigate('/login');
     }
-  },[access]);
+  };
+
+  const handleIconClick = () => {
+    navigate(isAuthenticated ? '/home' : '/login');
+  };
 
   return (
-    <header className="header">
-      <div className="header__container">
-        <Icon name="logo_Icon" size={60} />
-        {
-          access && 
-          <div className="header__access">
-            <ClickText text="Buscar Objeto" onClick={() => console.log('Click en perfil')} />
-            <ClickText text="Reportar Objeto" onClick={() => console.log('Click en favoritos')} />
-          </div>
-        }
-        <IconLabelButton 
-          icon="session_Icon" 
+    <header className='header'>
+      <div className='header__container'>
+        <Icon name='logo_Icon' size={60} onClick={handleIconClick} clickable />
+
+        <IconLabelButton
+          icon='session_Icon'
           label={label}
-          onClick={() => console.log('Click en favorito')} 
+          onClick={handleSessionClick}
         />
       </div>
-        
     </header>
   );
-}
+};
 
 export default Header;
