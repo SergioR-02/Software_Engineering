@@ -78,6 +78,7 @@ const SearchForm = ({ onSearch }) => {
           onChange={(e) => handleChangeOptions("location", e.target.value)}
           placeholder="Selecciona una ubicación"
           options={locationOptions}
+          selectablePlaceholder={true}
         />
       </div>
       <CalendarDateRange

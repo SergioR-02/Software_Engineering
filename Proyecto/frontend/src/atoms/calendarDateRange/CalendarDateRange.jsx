@@ -10,6 +10,8 @@ import '../calendarDate/CalendarDate.scss';
 import './CalendarDateRange.scss';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; // Importa el icono
 import InputAdornment from '@mui/material/InputAdornment'; 
+import ClearIcon from '@mui/icons-material/Clear';
+import IconButton from '@mui/material/IconButton';
 
 // Configura dayjs para usar español
 dayjs.locale('es');
@@ -138,9 +140,25 @@ export default function CalendarDateRange({
                 variant: "outlined",
                 InputProps: {
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <>
+                      {startDate && (
+                        <IconButton
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation(); // Evita que el click se propague y abra el calendario
+                            setstartDate(null);
+                            onDateTimeChange({
+                              startDate: null,
+                              endDate: endDate ? endDate.format('YYYY-MM-DD') : null
+                            });
+                          }}
+                          onMouseDown={(e) => e.stopPropagation()} // También evita la propagación del evento mouseDown
+                        >
+                          <ClearIcon sx={{ color: 'white' }} />
+                        </IconButton>
+                      )}
                       <CalendarMonthIcon sx={{ color: 'white' }}/>
-                    </InputAdornment>
+                    </>
                   ),
                 },
                 inputProps: {
@@ -165,6 +183,7 @@ export default function CalendarDateRange({
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
           <MobileDatePicker
+            disabled={!startDate} 
             className='CalendarDate12'
             disableFuture
             minDate={startDate || undefined}
