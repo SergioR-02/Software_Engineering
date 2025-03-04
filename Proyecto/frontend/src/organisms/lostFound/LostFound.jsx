@@ -1,19 +1,18 @@
 import './LostFound.scss';
-import BasicLayout from "../../templates/layout/BasicLayout";
-import SearchForm from "../searchForm/SearchForm";
-import ItemCard from "../../molecules/itemCard/ItemCard";
+import BasicLayout from '../../templates/layout/BasicLayout';
+import SearchForm from '../searchForm/SearchForm';
+import ItemCard from '../../molecules/itemCard/ItemCard';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {getObjects} from '../../utilities/foundObjects';
+import { getObjects } from '../../utilities/foundObjects';
 import { useUserStore } from '../../store/userStore';
 import dayjs from 'dayjs';
 import { categoryFound } from '../../utilities/options';
 
-
 const LostFound = () => {
   const { userId } = useUserStore();
-  const [selectedCategory, setSelectedCategory] = useState("TODAS");
-  const [items, setItems] = useState([]);  // <-- Estado para items traídos del backend
+  const [selectedCategory, setSelectedCategory] = useState('TODAS');
+  const [items, setItems] = useState([]); // <-- Estado para items traídos del backend
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,13 +28,13 @@ const LostFound = () => {
           status: obj.status,
           location: obj.location,
           date: dayjs(obj.date_lost_or_found).format('DD-MM-YYYY'),
-          imageUrl: `http://localhost:3000/user/${userId}/images/${obj.image_url}`,
+          imageUrl: `https://api-backend-lostandfound-production.up.railway.app/user/${userId}/images/${obj.image_url}`,
         }));
         console.log(fetchedItems);
 
         setItems(fetchedItems);
       } catch (error) {
-        console.error("Error al obtener objetos:", error);
+        console.error('Error al obtener objetos:', error);
       }
     };
 
@@ -53,9 +52,13 @@ const LostFound = () => {
 
   console.log(selectedCategory);
   // Filtrado local en el front:
-  const filteredItems = selectedCategory === "TODAS"
-    ? items
-    : items.filter((item) => item.category.toUpperCase() === selectedCategory.toUpperCase());
+  const filteredItems =
+    selectedCategory === 'TODAS'
+      ? items
+      : items.filter(
+          (item) =>
+            item.category.toUpperCase() === selectedCategory.toUpperCase(),
+        );
 
   return (
     <BasicLayout>
@@ -63,13 +66,15 @@ const LostFound = () => {
         <h1 className='report-form__title'>Buscar Objeto</h1>
         <SearchForm />
 
-        <label className="lost-found__label">CATEGORIA</label>
+        <label className='lost-found__label'>CATEGORIA</label>
         <div className='lost-found__categories'>
           {categoryFound.map((category) => (
             <button
               key={category}
               className={`lost-found__categoryButton ${
-                selectedCategory === category ? 'lost-found__categoryButton--active' : ''
+                selectedCategory === category
+                  ? 'lost-found__categoryButton--active'
+                  : ''
               }`}
               onClick={() => handleCategoryClick(category)}
             >

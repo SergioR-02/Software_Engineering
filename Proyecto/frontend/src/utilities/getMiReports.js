@@ -3,15 +3,15 @@ import dayjs from 'dayjs';
 
 export const getMiReports = async (userId) => {
   try {
-    const response = await axios.get(`http://localhost:3000/user/${userId}/reports`, {
+    const response = await axios.get(`https://api-backend-lostandfound-production.up.railway.app/user/${userId}/reports`, {
       withCredentials: true,
     });
-    
+
     const reportesTraducidos = response.data.map(({ title, status, date_lost_or_found, ...resto }) => ({
       titulo: title,
       estado: status,
       fecha: dayjs(date_lost_or_found).format('DD-MM-YYYY'),
-      ...resto 
+      ...resto
     }));
 
     return reportesTraducidos;

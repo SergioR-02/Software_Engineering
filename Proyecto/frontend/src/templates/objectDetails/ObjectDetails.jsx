@@ -51,7 +51,7 @@ export default function ObjectDetails() {
         <ObjectCard
           imageSrc={
             object.image_url
-              ? `http://localhost:3000/user/${userId}/images/${object.image_url}`
+              ? `https://api-backend-lostandfound-production.up.railway.app/user/${userId}/images/${object.image_url}`
               : '../../Icons/Default_Icon.svg'
           }
           imageAlt='Imagen del objeto'

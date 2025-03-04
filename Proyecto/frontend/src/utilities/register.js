@@ -3,7 +3,7 @@ import axios from "axios";
 const RegisterUser = async (name, email, password) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/register',
+      'https://api-backend-lostandfound-production.up.railway.app/auth/register',
       {
         email,
         password,

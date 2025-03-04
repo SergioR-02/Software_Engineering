@@ -12,16 +12,26 @@ import PrivateRoute from './privateRoute';
 import { useEffect, useState } from 'react';
 import { checkAuthStatus } from '../utilities/auth';
 import { useUserStore } from '../store/userStore';
+//saber cual es la url
 
 const RoutesComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const setIsAuthenticated = useUserStore((state) => state.setIsAuthenticated);
+  const pathname = location.pathname;
 
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        const isAuth = await checkAuthStatus();
-        setIsAuthenticated(isAuth);
+        if (
+          pathname === '/' ||
+          pathname === '/login' ||
+          pathname === '/register'
+        ) {
+          return;
+        } else {
+          const isAuth = await checkAuthStatus();
+          setIsAuthenticated(isAuth);
+        }
       } catch (error) {
         console.log('error', error);
         setIsAuthenticated(false);
@@ -34,7 +44,7 @@ const RoutesComponent = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Cargando...</div>; 
+    return <div>Cargando...</div>;
   }
 
   return (

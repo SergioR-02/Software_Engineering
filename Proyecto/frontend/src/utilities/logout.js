@@ -3,7 +3,7 @@ import axios from "axios";
 const Logout = async () => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/logout',
+      'https://api-backend-lostandfound-production.up.railway.app/auth/logout',
       {},
       { withCredentials: true }
     );

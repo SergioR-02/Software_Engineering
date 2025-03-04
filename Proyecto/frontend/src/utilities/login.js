@@ -3,7 +3,7 @@ import Logout from "./logout";
 const Login = async (email, password) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/login',
+      'https://api-backend-lostandfound-production.up.railway.app/auth/login',
       {
         email: email,
         password: password,
@@ -12,7 +12,7 @@ const Login = async (email, password) => {
         withCredentials: true,
       }
     );
-    
+
     // Si el login es exitoso, configuramos el refresh automático
     if (response.status === 200) {
       setupTokenRefresh();
@@ -27,7 +27,7 @@ const Login = async (email, password) => {
 const refreshToken = async () => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/refresh-token',
+      'https://api-backend-lostandfound-production.up.railway.app/auth/refresh-token',
       {},
       {
         withCredentials: true,

@@ -10,7 +10,7 @@ export const createReport = async (userId, values) => {
       }
     });
 
-    const response = await axios.post(`http://localhost:3000/user/${userId}/reports`, formData, {
+    const response = await axios.post(`https://api-backend-lostandfound-production.up.railway.app/user/${userId}/reports`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       withCredentials: true,
     });
@@ -26,11 +26,11 @@ const prepareUpdateReportPayload = (data) => {
   const payload = { ...data };
   console.log('data inicial', payload);
   // Si category_id contiene el nombre de la categoría, lo mapeamos al id correcto
-  if (payload.category_id ) {
+  if (payload.category_id) {
     const foundCategory = categoryOptions.find(option => option.label === payload.category_id);
     if (foundCategory) {
       payload.category_id = foundCategory.value;
-    } 
+    }
   }
 
   if (payload.location_id) {
@@ -51,7 +51,7 @@ export const updateReport = async (userId, reportId, data) => {
     const payload = prepareUpdateReportPayload(data);
     console.log('Payload:', payload);
     const response = await axios.patch(
-      `http://localhost:3000/user/${userId}/reports/${reportId}`,
+      `https://api-backend-lostandfound-production.up.railway.app/user/${userId}/reports/${reportId}`,
       payload,
       {
         withCredentials: true,
