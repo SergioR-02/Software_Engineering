@@ -50,7 +50,6 @@ const LostFound = () => {
     navigate(`/objectDetails?id=${id}`);
   };
 
-  console.log(selectedCategory);
   // Filtrado local en el front:
   const filteredItems =
     selectedCategory === 'TODAS'
