@@ -12,6 +12,7 @@ import PrivateRoute from './privateRoute';
 import { useEffect, useState } from 'react';
 import { checkAuthStatus } from '../utilities/auth';
 import { useUserStore } from '../store/userStore';
+import Loading from '../templates/loading/Loading';
 //saber cual es la url
 
 const RoutesComponent = () => {
@@ -44,7 +45,7 @@ const RoutesComponent = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Cargando...</div>;
+    return <Loading />;
   }
 
   return (

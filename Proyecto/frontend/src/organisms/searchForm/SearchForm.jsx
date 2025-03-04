@@ -4,13 +4,8 @@ import { useState } from 'react';
 import InputField from '../../atoms/inputField/InputField';
 import MainButton from '../../atoms/mainButton/MainButton';
 import SelectField from '../../atoms/selectField/SelectField';
+import { locationOptions } from '../../utilities/options';
 
-const categoryOptions = [
-  { value: "1", label: "Electrónicos" },
-  { value: "2", label: "Documentos" },
-  { value: "3", label: "Accesorios" },
-  { value: "4", label: "Otros" },
-]
 
 const SearchForm = () => {
   const [values, setValues] = useState({
@@ -37,7 +32,7 @@ const SearchForm = () => {
     e.preventDefault()
     console.log(values);
     setValues({
-      category: '',
+
       location: '',
       description: '',
       status: '',
@@ -67,11 +62,12 @@ const SearchForm = () => {
           className='report-form__input'
         />
         <SelectField
+          className='search-form__select'
           label="UBICACIÓN"
           value={values.location}
           onChange={(e) => handleChangeOptions("location", e.target.value)}
           placeholder="Selecciona una ubicación"
-          options={categoryOptions}
+          options={locationOptions}
         />
       </div>
       <CalendarDateRange

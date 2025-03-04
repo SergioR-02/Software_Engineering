@@ -14,12 +14,10 @@ const LostFound = () => {
   const [selectedCategory, setSelectedCategory] = useState('TODAS');
   const [items, setItems] = useState([]); // <-- Estado para items traídos del backend
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchObjects = async () => {
       try {
         const data = await getObjects(userId);
-
         // Formateamos el arreglo que viene de la API:
         const fetchedItems = data.map((obj) => ({
           id: obj.report_id,
@@ -30,8 +28,6 @@ const LostFound = () => {
           date: dayjs(obj.date_lost_or_found).format('DD-MM-YYYY'),
           imageUrl: `https://api-backend-lostandfound-production.up.railway.app/user/${userId}/images/${obj.image_url}`,
         }));
-        console.log(fetchedItems);
-
         setItems(fetchedItems);
       } catch (error) {
         console.error('Error al obtener objetos:', error);
