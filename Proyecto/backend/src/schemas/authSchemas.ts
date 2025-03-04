@@ -8,6 +8,12 @@ export const registerSchema = z.object({
   phone_number: z.string().optional(),
 });
 
+export const updateUserSchema = z.object({
+  email: z.string().email('Correo electrónico inválido'),
+  name: z.string().min(1, 'El nombre es requerido'),
+  phone_number: z.string().optional(),
+});
+
 // Esquema para el inicio de sesión
 export const loginSchema = z.object({
   email: z.string().email('Correo electrónico inválido'),
@@ -17,6 +23,7 @@ export const loginSchema = z.object({
 // Exportar los tipos inferidos de los esquemas
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
+export type UpdateUserInput = z.infer<typeof updateUserSchema>;
 
 export function validateRegister(input: RegisterInput) {
   return registerSchema.safeParse(input);
@@ -24,4 +31,8 @@ export function validateRegister(input: RegisterInput) {
 
 export function validateLogin(input: LoginInput) {
   return loginSchema.safeParse(input);
+}
+
+export function validateUpdateUser(input: unknown) {
+  return updateUserSchema.partial().safeParse(input);
 }

@@ -8,6 +8,7 @@ export interface Object {
   category: string;
   location: string;
   status: 'perdido' | 'encontrado';
+  contact_method: string;
   date_lost_or_found: Date;
   image_url?: string; // Nueva propiedad para la URL de la imagen
 }
@@ -24,6 +25,7 @@ class ObjectModel {
         c.name AS category,
         r.status,
         l.name AS location,
+        r.contact_method,
         r.date_lost_or_found,
         r.description,
         i.image_url
@@ -47,6 +49,7 @@ class ObjectModel {
         c.name AS category,
         r.status,
         l.name AS location,
+        r.contact_method,
         r.date_lost_or_found,
         r.description,
         i.image_url
@@ -68,6 +71,7 @@ class ObjectModel {
     startDate?: string,
     endDate?: string,
     keyword?: string,
+    status?: 'perdido' | 'encontrado',
     limit: number = 50,
     offset: number = 0,
   ): Promise<Object[]> {
@@ -81,6 +85,7 @@ class ObjectModel {
         c.name AS category,
         r.status,
         l.name AS location,
+        r.contact_method,
         r.date_lost_or_found,
         r.description,
         i.image_url
@@ -92,6 +97,11 @@ class ObjectModel {
 
     const params: any[] = [];
     const conditions: string[] = [];
+
+    if (status) {
+      conditions.push('r.status = ?');
+      params.push(status);
+    }
 
     // Filtrar por categoría
     if (category) {

@@ -10,7 +10,7 @@ export interface Report {
   description?: string;
   status: 'perdido' | 'encontrado';
   date_lost_or_found: Date;
-  contact_method: 'email' | 'phone' | 'both';
+  contact_method: string;
   created_at: Date;
   updated_at: Date;
 }

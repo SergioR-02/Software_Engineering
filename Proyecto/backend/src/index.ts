@@ -1,6 +1,6 @@
 import express, { json } from 'express';
 import { Models } from './modelTypes';
-import { corsMiddleware } from './middlewares/cors';
+import { corsMiddleware } from './middlewares/corsMiddleware';
 import { MySQLDatabase } from './database/mysql';
 import cookieParser from 'cookie-parser';
 import { createAuthRouter } from './routes/authRoutes';

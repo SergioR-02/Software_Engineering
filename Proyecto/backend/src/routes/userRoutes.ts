@@ -10,5 +10,7 @@ export const createUserRouter = (userModel: UserModel): Router => {
   // Obtener la informacion del usuario
   userRouter.get('/profile', authenticate, userController.getUserInformation);
 
+  userRouter.patch('/:user_id/profile/update', authenticate, userController.updateUser);
+
   return userRouter;
 };

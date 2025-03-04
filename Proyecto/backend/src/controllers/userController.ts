@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/UserModel';
+import { validateUpdateUser } from '../schemas/authSchemas';
 
 export class UserController {
   private userModel: UserModel;
@@ -32,6 +33,32 @@ export class UserController {
       };
 
       res.status(200).json(userInfo);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error en el servidor' });
+    }
+  };
+
+  // Editar un reporte
+  updateUser = async (req: Request, res: Response): Promise<void> => {
+    const validate = validateUpdateUser(req.body);
+
+    if (!validate.success) {
+      res.status(400).json({ error: JSON.parse(validate.error.message) });
+      return;
+    }
+
+    const user_id = parseInt(req.params.user_id, 10);
+
+    try {
+      const updateData = {
+        email: validate.data.email || '',
+        name: validate.data.name || '',
+        phone_number: validate.data.phone_number,
+      };
+
+      await this.userModel.updateUser(user_id, updateData);
+      res.status(200).json({ message: 'Usuario actualizado exitosamente' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });
