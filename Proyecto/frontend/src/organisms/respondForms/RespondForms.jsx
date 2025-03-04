@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { useFormLogic } from '../../hooks/useFormLogic';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getFilteredObjects } from '../../utilities/getObjectId';
-import { categoryOptions, locationOptions } from '../../utilities/options';
+import { categoryOptions, locationOptionsValue } from '../../utilities/options';
 import ModalWindow from '../modalWindow/ModalWindow';
 
 const RespondForms = () => {
@@ -39,7 +39,7 @@ const RespondForms = () => {
           // Encontrar IDs basados en los nombres recibidos
           console.log('Data:', data);
           const category = categoryOptions.find(opt => opt.label === data.category);
-          const location = locationOptions.find(opt => opt.label === data.location);
+          const location = locationOptionsValue.find(opt => opt.label === data.location);
 
           setValues({
             title: data.title || '',
@@ -62,6 +62,7 @@ const RespondForms = () => {
 
   // Función que se ejecuta al confirmar en el modal
   const handleModalConfirm = async () => {
+    console.log('Enviando formulario:', values);
     try {
       let reportData;
       if (id) {
