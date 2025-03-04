@@ -10,7 +10,7 @@ export const getMiReports = async (userId) => {
     const reportesTraducidos = response.data.map(({ title, status, date_lost_or_found, ...resto }) => ({
       titulo: title,
       estado: status,
-      fecha: dayjs(date_lost_or_found).format('YYYY-MM-DD'),
+      fecha: dayjs(date_lost_or_found).format('DD-MM-YYYY'),
       ...resto 
     }));
 

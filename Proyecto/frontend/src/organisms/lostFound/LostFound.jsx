@@ -28,7 +28,7 @@ const LostFound = () => {
           category: obj.category,
           status: obj.status,
           location: obj.location,
-          date: dayjs(obj.date_lost_or_found).format('YYYY-MM-DD'),
+          date: dayjs(obj.date_lost_or_found).format('DD-MM-YYYY'),
           imageUrl: `http://localhost:3000/user/${userId}/images/${obj.image_url}`,
         }));
         console.log(fetchedItems);
