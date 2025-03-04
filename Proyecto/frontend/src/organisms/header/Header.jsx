@@ -31,18 +31,7 @@ const Header = () => {
     <header className='header'>
       <div className='header__container'>
         <Icon name='logo_Icon' size={60} onClick={handleIconClick} clickable />
-        {isAuthenticated && (
-          <div className='header__access'>
-            {/* <ClickText
-              text='Reportar Objeto'
-              onClick={() => navigate('/report')}
-            />
-            <ClickText
-              text='Buscar Objeto'
-              onClick={() => navigate('/searchReports')}
-            /> */}
-          </div>
-        )}
+
         <IconLabelButton
           icon='session_Icon'
           label={label}

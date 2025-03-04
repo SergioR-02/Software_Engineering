@@ -10,6 +10,8 @@ import { useUserStore } from '../../store/userStore';
 import MainButton from '../../atoms/mainButton/MainButton';
 import Logout from '../../utilities/logout';
 import { getMiReports } from '../../utilities/getMiReports';
+import { Toaster } from 'sonner';
+import { toast } from 'sonner';
 
 export default function MainProfileInformation() {
   const [reports, setReports] = useState([]);
@@ -102,6 +104,7 @@ export default function MainProfileInformation() {
           </SwitchTransition>
         </div>
       </div>
+      <Toaster />
     </BasicLayout>
   );
 }

@@ -2,13 +2,25 @@ import './ProfileInformation.scss';
 import { useState } from 'react';
 import MainButton from '../../atoms/mainButton/MainButton';
 import { useUserStore } from '../../store/userStore';
+import { updateUserInfo } from '../../utilities/updateUserInfo';
+import { toast } from 'sonner';
 
 export default function ProfileInformation() {
-  const { userName, userEmail, userPhone } = useUserStore();
+  const { userName, userEmail, userPhone, userId } = useUserStore();
   const [name, setName] = useState(userName);
   const [email, setEmail] = useState(userEmail);
   const [studentNumber, setStudentNumber] = useState(userPhone);
-  const [canEdit, setCanEdit] = useState(true);
+  const [cantEdit, setCantEdit] = useState(true);
+
+  const handleUpdateUserInfo = async () => {
+    try {
+      console.log(userId, name, email, studentNumber);
+      await updateUserInfo(userId, name, email, studentNumber);
+      toast.success('Información actualizada correctamente');
+    } catch (error) {
+      toast.error('Error al actualizar la información');
+    }
+  };
 
   return (
     <div className='profile-information'>
@@ -20,7 +32,10 @@ export default function ProfileInformation() {
         className='profile-information__form'
         onSubmit={(e) => {
           e.preventDefault();
-          setCanEdit(!canEdit);
+          setCantEdit(!cantEdit);
+          if (!cantEdit) {
+            handleUpdateUserInfo();
+          }
         }}
       >
         <div className='profile-information__fields'>
@@ -30,7 +45,8 @@ export default function ProfileInformation() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className='profile-information__input'
-            disabled={canEdit}
+            disabled={cantEdit}
+            required
           />
         </div>
         <div className='profile-information__fields'>
@@ -42,7 +58,8 @@ export default function ProfileInformation() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className='profile-information__input'
-            disabled={canEdit}
+            disabled={cantEdit}
+            required
           />
         </div>
         <div className='profile-information__fields'>
@@ -54,13 +71,14 @@ export default function ProfileInformation() {
             value={studentNumber}
             onChange={(e) => setStudentNumber(e.target.value)}
             className='profile-information__input'
-            disabled={canEdit}
+            disabled={cantEdit}
+            required
           />
         </div>
         <MainButton
           className='profile-information__button'
           type='submit'
-          text={canEdit ? 'Editar Perfil' : 'Actualizar Perfil'}
+          text={cantEdit ? 'Editar Perfil' : 'Actualizar Perfil'}
         />
       </form>
     </div>
