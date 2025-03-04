@@ -59,7 +59,7 @@ const LostFound = () => {
     <BasicLayout>
       <div className='lost-found'>
         <h1 className='report-form__title'>Buscar Objeto</h1>
-        <SearchForm />
+        <SearchForm onSearch={setItems}/>
 
         <label className='lost-found__label'>CATEGORIA</label>
         <div className='lost-found__categories'>

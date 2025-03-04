@@ -7,9 +7,9 @@ import SelectField from '../../atoms/selectField/SelectField';
 import { locationOptions } from '../../utilities/options';
 import { getFilteredObjects } from '../../utilities/getFilterObjects';
 import { useUserStore } from '../../store/userStore';
+import dayjs from 'dayjs';
 
-
-const SearchForm = () => {
+const SearchForm = ({ onSearch }) => {
   const { userId } = useUserStore();
   const [values, setValues] = useState({
     keyword: '',
@@ -26,15 +26,31 @@ const SearchForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    // TODO: TOCA VER QUE SI TRAIGA LOS OBJETOS QUE SON, POR UBICACION YA FILTTRA BIEN  (CREO)
-    try{
-      const response = await getFilteredObjects(userId, values.keyword, values.location, values.startDate, values.endDate);
-      console.log(response);
-    }catch(error){
+    e.preventDefault();
+    try {
+      const response = await getFilteredObjects(
+        userId,
+        values.keyword,
+        values.location,
+        values.startDate,
+        values.endDate
+      );
+      // Mapear el resultado a la estructura necesaria:
+      const fetchedItems = response.map((obj) => ({
+        id: obj.report_id,
+        title: obj.title,
+        category: obj.category,
+        status: obj.status,
+        location: obj.location,
+        date: dayjs(obj.date_lost_or_found).format('DD-MM-YYYY'),
+        imageUrl: `https://api-backend-lostandfound-production.up.railway.app/user/${userId}/images/${obj.image_url}`,
+      }));
+      // Actualiza los items en el componente padre:
+      onSearch(fetchedItems);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleDateTimeChange = (dates) => {
     setValues(prev => ({
@@ -44,9 +60,7 @@ const SearchForm = () => {
     }));
   };
 
-
-
-  return(
+  return (
     <form onSubmit={handleSubmit} className="search-form">
       <div className='ContainerCalendarRange'>
         <InputField
@@ -77,8 +91,7 @@ const SearchForm = () => {
         className='search-form__button'
       />
     </form>
-
-  )
-}
+  );
+};
 
 export default SearchForm;
