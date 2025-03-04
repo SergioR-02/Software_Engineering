@@ -8,13 +8,13 @@ import { useUserStore } from '../../store/userStore';
 import { useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 
-
 export default function ObjectDetails() {
   const query = new URLSearchParams(useLocation().search);
   const id = query.get('id');
   const { userId } = useUserStore();
   const [object, setObject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchObject = async () => {
@@ -24,15 +24,24 @@ export default function ObjectDetails() {
         console.log(data);
       } catch (error) {
         console.log(error);
+        setError(error);
       } finally {
         setIsLoading(false);
       }
     };
     fetchObject();
-  }, [id]);
+  }, [id, userId]);
 
   if (isLoading) {
     return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error al cargar el objeto: {error.message}</div>;
+  }
+
+  if (!object) {
+    return <div>No se encontró el objeto</div>;
   }
 
   return (
@@ -40,15 +49,23 @@ export default function ObjectDetails() {
       <Header />
       <div className='object-details-container'>
         <ObjectCard
-          imageSrc={`http://localhost:3000/user/${userId}/images/${object.image_url}`}
+          imageSrc={
+            object.image_url
+              ? `http://localhost:3000/user/${userId}/images/${object.image_url}`
+              : '../../Icons/Default_Icon.svg'
+          }
           imageAlt='Imagen del objeto'
-          title={object.title}
-          category={object.category}
-          state={object.status}
-          location={object.location}
-          date={dayjs(object.date_lost_or_found).format('DD/MM/YYYY')}
-          description={object.description}
-          contactInfo={object.contact_method}
+          title={object.title || 'Sin título'}
+          category={object.category || 'Sin categoría'}
+          state={object.status || 'Estado desconocido'}
+          location={object.location || 'Ubicación desconocida'}
+          date={
+            object.date_lost_or_found
+              ? dayjs(object.date_lost_or_found).format('DD/MM/YYYY')
+              : 'Fecha desconocida'
+          }
+          description={object.description || 'Sin descripción'}
+          contactInfo={object.contact_method || 'Sin información de contacto'}
         />
       </div>
       <Footer />
