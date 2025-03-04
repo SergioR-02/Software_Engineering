@@ -43,7 +43,7 @@ const LostFound = () => {
 
   const handleViewDetails = (id) => {
     console.log(`Ver detalles del objeto con ID: ${id}`);
-    navigate(`/objectDetails?id=${id}`);
+    navigate(`/objectDetails/${id}`);
   };
 
   // Filtrado local en el front:

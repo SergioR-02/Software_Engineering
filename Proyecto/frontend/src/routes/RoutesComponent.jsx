@@ -58,7 +58,7 @@ const RoutesComponent = () => {
         {/* Protected Routes */}
         <Route element={<PrivateRoute />}>
           <Route path='/home' element={<Home />} />
-          <Route path='/objectDetails' element={<ObjectDetails />} />
+          <Route path='/objectDetails/:id' element={<ObjectDetails />} />
           <Route path='/profileInformation' element={<ProfileInformation />} />
           <Route path='/report' element={<FormReport />} />
           <Route path='/editar/:id' element={<FormReport />} />

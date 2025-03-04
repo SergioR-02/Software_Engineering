@@ -1,6 +1,5 @@
 import './ObjectCard.scss';
 import MainButton from '../../atoms/mainButton/MainButton';
-import BasicLayout from '../../templates/layout/BasicLayout';
 
 const ObjectCard = ({
   imageSrc,
@@ -14,7 +13,6 @@ const ObjectCard = ({
   contactInfo,
 }) => {
   return (
-    <BasicLayout>
       <div className='card__container'>
         <h1 className='card__text'>Detalles del objeto</h1>
         <div className='card'>
@@ -43,7 +41,6 @@ const ObjectCard = ({
           <MainButton text='Reclamar Objeto' className="card__button" />
         </div>
       </div>
-    </BasicLayout>
   );
 };
 

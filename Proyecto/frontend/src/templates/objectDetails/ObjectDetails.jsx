@@ -5,12 +5,12 @@ import Header from '../../organisms/header/Header';
 import { Footer } from '../../organisms/footer/Footer';
 import { getFilteredObjects } from '../../utilities/getObjectId';
 import { useUserStore } from '../../store/userStore';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
+import BasicLayout from '../layout/BasicLayout';
 
 export default function ObjectDetails() {
-  const query = new URLSearchParams(useLocation().search);
-  const id = query.get('id');
+  const { id } = useParams();
   const { userId } = useUserStore();
   const [object, setObject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,27 +47,30 @@ export default function ObjectDetails() {
   return (
     <>
       <Header />
-      <div className='object-details-container'>
-        <ObjectCard
-          imageSrc={
-            object.image_url
-              ? `https://api-backend-lostandfound-production.up.railway.app/user/${userId}/images/${object.image_url}`
-              : '../../Icons/Default_Icon.svg'
-          }
-          imageAlt='Imagen del objeto'
-          title={object.title || 'Sin título'}
-          category={object.category || 'Sin categoría'}
-          state={object.status || 'Estado desconocido'}
-          location={object.location || 'Ubicación desconocida'}
-          date={
-            object.date_lost_or_found
-              ? dayjs(object.date_lost_or_found).format('DD/MM/YYYY')
-              : 'Fecha desconocida'
-          }
-          description={object.description || 'Sin descripción'}
-          contactInfo={object.contact_method || 'Sin información de contacto'}
-        />
-      </div>
+      <BasicLayout>
+
+        <div className='object-details-container'>
+          <ObjectCard
+            imageSrc={
+              object.image_url
+                ? `https://api-backend-lostandfound-production.up.railway.app/user/${userId}/images/${object.image_url}`
+                : '../../Icons/Default_Icon.svg'
+            }
+            imageAlt='Imagen del objeto'
+            title={object.title || 'Sin título'}
+            category={object.category || 'Sin categoría'}
+            state={object.status || 'Estado desconocido'}
+            location={object.location || 'Ubicación desconocida'}
+            date={
+              object.date_lost_or_found
+                ? dayjs(object.date_lost_or_found).format('DD/MM/YYYY')
+                : 'Fecha desconocida'
+            }
+            description={object.description || 'Sin descripción'}
+            contactInfo={object.contact_method || 'Sin información de contacto'}
+          />
+        </div>
+      </BasicLayout>
       <Footer />
     </>
   );
