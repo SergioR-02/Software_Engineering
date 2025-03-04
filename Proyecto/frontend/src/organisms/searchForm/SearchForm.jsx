@@ -5,41 +5,37 @@ import InputField from '../../atoms/inputField/InputField';
 import MainButton from '../../atoms/mainButton/MainButton';
 import SelectField from '../../atoms/selectField/SelectField';
 import { locationOptions } from '../../utilities/options';
+import { getFilteredObjects } from '../../utilities/getFilterObjects';
+import { useUserStore } from '../../store/userStore';
 
 
 const SearchForm = () => {
+  const { userId } = useUserStore();
   const [values, setValues] = useState({
-    category: '',
+    keyword: '',
     location: '',
-    description: '',
-    status: '',
     startDate: '',
     endDate: '',
   });
 
   const handleChangeOptions = (key, value) => {
-    const auxValues = { ...values };
-    if (key === "title"){
-      const  filteredValue =  value.replace(/^\s+/, '').replace(/[^a-zA-Z0-9 .,]/g, '').replace(/\s+/g, ' ');
-      auxValues[key] = filteredValue;
-    }else{
-      auxValues[key] = value;
-    }
-    setValues(auxValues);
+    setValues(prev => ({
+      ...prev,
+      [key]: value
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(values);
-    setValues({
-
-      location: '',
-      description: '',
-      status: '',
-      startDate: '',
-      endDate: '',
-    });
+    // TODO: TOCA VER QUE SI TRAIGA LOS OBJETOS QUE SON, POR UBICACION YA FILTTRA BIEN  (CREO)
+    try{
+      const response = await getFilteredObjects(userId, values.keyword, values.location, values.startDate, values.endDate);
+      console.log(response);
+    }catch(error){
+      console.log(error);
+    }
   }
+
   const handleDateTimeChange = (dates) => {
     setValues(prev => ({
       ...prev,
@@ -56,8 +52,8 @@ const SearchForm = () => {
         <InputField
           label='PALABRAS CLAVE'
           type='text'
-          value={values.description}
-          onChange={(e) => handleChangeOptions("description", e.target.value)}
+          value={values.keyword}
+          onChange={(e) => handleChangeOptions("keyword", e.target.value)}
           placeholder="Ej. Mochila Azul"
           className='report-form__input'
         />
@@ -78,7 +74,6 @@ const SearchForm = () => {
       <MainButton
         text='Buscar'
         type='submit'
-        onClick={() => {}}
         className='search-form__button'
       />
     </form>
