@@ -41,6 +41,7 @@ const LoginRegistrationForget = () => {
   const handleuserinformation = () => {
     getUser()
       .then((response) => {
+        console.log(response);
         handleuserseter(response);
         navigate('/home');
       })

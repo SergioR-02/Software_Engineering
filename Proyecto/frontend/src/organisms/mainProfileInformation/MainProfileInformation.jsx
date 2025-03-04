@@ -64,7 +64,7 @@ export default function MainProfileInformation() {
       <div className='main-profile-information'>
         <h1 className='main-profile-information__title'>Perfil de Usuario</h1>
         <UserBasicInformation
-          imageSrc='https://a.calameoassets.com/7368883/picture.jpg?_u=230511151316'
+          imageSrc="public\fotoSeria.jpg"
           name={userName}
           email={userEmail}
         />

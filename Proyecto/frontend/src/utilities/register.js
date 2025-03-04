@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const RegisterUser = async (name, email, password) => {
+const RegisterUser = async (name, email, password, phone_number) => {
   try {
     const response = await axios.post(
       'https://api-backend-lostandfound-production.up.railway.app/auth/register',
@@ -8,6 +8,7 @@ const RegisterUser = async (name, email, password) => {
         email,
         password,
         name,
+        phone_number,
       },
       { withCredentials: true }
     );

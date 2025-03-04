@@ -1,12 +1,13 @@
 import './ProfileInformation.scss';
 import { useState } from 'react';
 import MainButton from '../../atoms/mainButton/MainButton';
+import { useUserStore } from '../../store/userStore';
 
 export default function ProfileInformation() {
-  
-  const [name, setName] = useState('Cristian Momochis de los momochis');
-  const [email, setEmail] = useState('Cristian@gmail.com');
-  const [studentNumber, setStudentNumber] = useState('666666666');
+  const { userName, userEmail, userPhone } = useUserStore();
+  const [name, setName] = useState(userName);
+  const [email, setEmail] = useState(userEmail);
+  const [studentNumber, setStudentNumber] = useState(userPhone);
   const [canEdit, setCanEdit] = useState(true);
 
   return (
@@ -46,7 +47,7 @@ export default function ProfileInformation() {
         </div>
         <div className='profile-information__fields'>
           <label className='profile-information__label'>
-            NUMERO DEL ESTUDIANTE
+            TELÉFONO DEL ESTUDIANTE
           </label>
           <input
             type='number'

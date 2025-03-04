@@ -2,18 +2,32 @@ import './RegisterForm.scss';
 import { useState } from 'react';
 import MainButton from '../../atoms/mainButton/MainButton';
 import InputField from '../../atoms/inputField/InputField';
-import ErrorMessage from '../../atoms/errorMessage/ErrorMessage';
+import { toast } from 'sonner';
 
-const RegisterForm = ({ onSubmit, error }) => {
+const RegisterForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(name, email, password);
+        if (
+          name === '' ||
+          email === '' ||
+          password === '' ||
+          password.length < 8 ||
+          phone === ''
+        ) {
+          toast.error(
+            'Todos los campos son requeridos y la contraseña debe ser de 8 caracteres minimo',
+          );
+          return;
+        } else {
+          onSubmit(name, email, password, phone);
+        }
       }}
       className='register-form'
     >
@@ -24,6 +38,12 @@ const RegisterForm = ({ onSubmit, error }) => {
           type='text'
           value={name}
           onChange={(e) => setName(e.target.value)}
+        />
+        <InputField
+          label='Teléfono'
+          type='number'
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
         />
         <InputField
           label='Correo'
@@ -47,7 +67,6 @@ const RegisterForm = ({ onSubmit, error }) => {
         onClick={() => {}}
         className='register-form__button'
       />
-      <ErrorMessage message={error} className='register-form__errorMessage' />
     </form>
   );
 };
